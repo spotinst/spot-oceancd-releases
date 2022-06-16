@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f64287c4-0642-44bb-9664-07fa5caf3632" name="Changes" comment="[fix] change argo rollouts value name">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/release.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Entities/json/RolloutSpec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Entities/json/Strategy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Entities/yaml/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Entities/yaml/Strategy.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/SpotDeployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/EndpointResolver.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/Mapping.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AMBASSADOR/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/Ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/RootService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/IP Mode/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/Ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/Rootservice.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/AWS ALB/Instance Mode/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Host-Level/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Host-Level/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Host-Level/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Host-Level/VirtualService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Host-Level/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Subset-Level/DestinationRule.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Subset-Level/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Subset-Level/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Subset-Level/Virtualservice.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/ISTIO/Subset-Level/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/NGINX/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/NGINX/Ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/NGINX/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/NGINX/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/NGINX/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/CanaryService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/Ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/RolloutSpec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/RootService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/StableService.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Quick Start &amp; Examples/Traffic-management/SMI/json/rolloutspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/.helmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/Chart.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/NOTES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/_helpers.tpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/aggregate-roles.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/clusterrole.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/clusterrolebinding.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/metrics-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/secret.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/argo-rollouts/serviceaccount.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/crds/analysis-run-crd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/crds/analysis-template-crd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/crds/cluster-analysis-template-crd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/crds/experiment-crd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/crds/rollout-crd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/deleteJob.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/operatorCatalogSource.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/operatorGroup.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/operatorSubscription.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/role.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/rolebinding.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/templates/operator/tokenJob.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/charts/spot-oceancd-operator/values.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/argo-rollouts.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/operator-catalogsource.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/operator-group.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/operator-subscription.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/operator/operator.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="test" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="spotinst" />
+        <option name="repository" value="spot-oceancd-releases" />
+      </RepoCoordinatesHolder>
+    </option>
+  </component>
+  <component name="ProjectId" id="25Mhp6556OIg4KIwkzF3qUj5sYT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TF_FMT" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/charts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/charts/oceancd-operator/templates/operator" />
+      <recent name="$PROJECT_DIR$/charts/oceancd-operator/templates/crds" />
+      <recent name="$PROJECT_DIR$/operator" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f64287c4-0642-44bb-9664-07fa5caf3632" name="Changes" comment="" />
+      <created>1645343043220</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1645343043220</updated>
+    </task>
+    <task id="LOCAL-00001" summary="[fix] change operator install path">
+      <created>1645343133223</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1645343133223</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add spot-oceancd-controller chart">
+      <created>1645614300897</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1645614300897</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add required params">
+      <created>1645616724007</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645616724007</updated>
+    </task>
+    <task id="LOCAL-00004" summary="change name to of the chart">
+      <created>1646153575636</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1646153575636</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add readme file">
+      <created>1646153631862</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1646153631862</updated>
+    </task>
+    <task id="LOCAL-00006" summary="docs(readme): add installation and uninstall">
+      <created>1646207563762</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1646207563762</updated>
+    </task>
+    <task id="LOCAL-00007" summary="docs(readme): fix">
+      <created>1646207667958</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646207667958</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[fix] move olm install from helm chart">
+      <created>1646741624633</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1646741624633</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[fix] move olm install from helm chart">
+      <created>1646741694367</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1646741694367</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[fix] change svc of mutating">
+      <created>1646747891241</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1646747891241</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[fix] update version">
+      <created>1646748163757</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1646748163757</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[fix] change controller resources names">
+      <created>1646749160207</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1646749160207</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add new helm chart for operator including argo rollouts">
+      <created>1653228694441</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1653228694441</updated>
+    </task>
+    <task id="LOCAL-00014" summary="move to one file for operator installation">
+      <created>1653229077037</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1653229077037</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add secret section to operator installation">
+      <created>1653299250245</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1653299250245</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add old operator files">
+      <created>1653475690417</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1653475690417</updated>
+    </task>
+    <task id="LOCAL-00017" summary="new helm chart for operator">
+      <created>1653928354433</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1653928354433</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add argo-rollouts create option">
+      <created>1653981151752</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1653981151752</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fix readme">
+      <created>1653982061838</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1653982061838</updated>
+    </task>
+    <task id="LOCAL-00020" summary="[fix] remove old files">
+      <created>1654499824913</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1654499824913</updated>
+    </task>
+    <task id="LOCAL-00021" summary="[fix] change folders names">
+      <created>1654503692219</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1654503692219</updated>
+    </task>
+    <task id="LOCAL-00022" summary="[fix] change argo rollouts value name">
+      <created>1654605563782</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1654605563782</updated>
+    </task>
+    <task id="LOCAL-00023" summary="[fix] change argo rollouts value name">
+      <created>1654605585820</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654605585820</updated>
+    </task>
+    <task id="LOCAL-00024" summary="[fix] change argo rollouts value name">
+      <created>1654606027269</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1654606027269</updated>
+    </task>
+    <task id="LOCAL-00025" summary="[fix] change argo rollouts value name">
+      <created>1654606229037</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1654606229037</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[fix] change operator install path" />
+    <MESSAGE value="add spot-oceancd-controller chart" />
+    <MESSAGE value="add required params" />
+    <MESSAGE value="change name to of the chart" />
+    <MESSAGE value="add readme file" />
+    <MESSAGE value="docs(readme): add installation and uninstall" />
+    <MESSAGE value="docs(readme): fix" />
+    <MESSAGE value="[fix] move olm install from helm chart" />
+    <MESSAGE value="[fix] change svc of mutating" />
+    <MESSAGE value="[fix] update version" />
+    <MESSAGE value="[fix] change controller resources names" />
+    <MESSAGE value="add new helm chart for operator including argo rollouts" />
+    <MESSAGE value="move to one file for operator installation" />
+    <MESSAGE value="Add secret section to operator installation" />
+    <MESSAGE value="add old operator files" />
+    <MESSAGE value="new helm chart for operator" />
+    <MESSAGE value="add argo-rollouts create option" />
+    <MESSAGE value="fix readme" />
+    <MESSAGE value="[fix] remove old files" />
+    <MESSAGE value="[fix] change folders names" />
+    <MESSAGE value="[fix] change argo rollouts value name" />
+    <option name="LAST_COMMIT_MESSAGE" value="[fix] change argo rollouts value name" />
+  </component>
+</project>
