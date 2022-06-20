@@ -5,6 +5,8 @@ metadata:
   labels:
     app: spot-oceancd-operator-token-generator
     {{- include "spot-oceancd-operator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
 spec:
   template:
     spec:
@@ -14,12 +16,12 @@ spec:
           imagePullPolicy: Always
           env:
             - name: API_URL
-              value: {{ .Values.apiUrl }}
+              value: {{ required "A value must be entered for apiUrl" .Values.apiUrl }}
             - name: CLUSTER_ID
-              value: {{ .Values.clusterId }}
+              value: {{ required "A value must be entered for clusterId" .Values.clusterId }}
             - name: TOKEN
-              value: {{ .Values.token }}
+              value: {{ required "A value must be entered for token" .Values.token }}
             - name: SAAS_URL
-              value: {{ .Values.saasUrl }}
+              value: {{ required "A value must be entered for saasUrl" .Values.saasUrl }}
       restartPolicy: Never
   backoffLimit: 1

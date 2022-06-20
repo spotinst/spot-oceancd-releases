@@ -5,6 +5,8 @@ metadata:
   labels:
     app: spot-oceancd-operator
     {{- include "spot-oceancd-operator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
 rules:
 - apiGroups: [""] # "" indicates the core API group
   resources: ["secrets"]
