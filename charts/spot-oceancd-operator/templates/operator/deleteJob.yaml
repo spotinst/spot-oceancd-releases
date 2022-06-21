@@ -17,6 +17,6 @@ spec:
           command:
             - "bin/sh"
             - "-c"
-            - "kubectl delete secret spot-oceancd-controller-token -n {{ .Release.Namespace }}"
+            - "kubectl delete secret spot-oceancd-controller-token -n {{ .Release.Namespace }} --ignore-not-found=true"
       restartPolicy: Never
   backoffLimit: 1
