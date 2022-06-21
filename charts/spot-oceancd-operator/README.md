@@ -33,11 +33,15 @@ helm install my-release oceancd/spot-oceancd-operator \
 > NOTE: Please configure all required chart values using the `set` command line argument or a `values.yaml` file.
 
 
-5. Uninstall `spot-oceancd-operator`:
+Uninstall `spot-oceancd-operator`:
 
 ```sh
 helm uninstall my-release 
 kubectl get csv -A | grep spot-oceancd-operator | awk '{system("kubectl delete csv " $2 " -n " $1)}'
+```
+
+Uninstall `OLM`:
+```sh
 kubectl delete apiservices v1.packages.operators.coreos.com
 kubectl delete -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/crds.yaml
 kubectl delete -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/olm.yaml
