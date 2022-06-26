@@ -16,7 +16,7 @@ argoRollouts:
     # -- (Optional) Security Context to set on container level
     containerSecurityContext: {}
 
-    # -- (Optional) Resource limits and requests for the controller pods.
+    # -- (Optional) Resource limits and requests for the argo rollouts controller pods.
     resources: {}
     #  limits:
     #    cpu: 100m
@@ -35,8 +35,31 @@ argoRollouts:
     # -- (Optional) Tolerations for use with node taints
     tolerations: []
 
-    # -- (Optional) Assign custom [affinity] rules to the deployment
+    # -- (Optional) Assign custom [affinity] rules to the argo rollout deployment
     affinity: {}
+
+operator:
+
+  # -- (Optional) List of Environment Variables that must exist in all containers in the Pod created by OLM.
+  env: []
+
+  # -- (Optional) List of sources to populate Environment Variables in the container.
+  envFrom: []
+
+  # -- (Optional) List of Volumes that must exist on the Pod created by OLM.
+  volumes: []
+
+   # -- (Optional) list of VolumeMounts that must exist in all containers in the Pod created by OLM.
+  volumeMounts: []
+
+  # -- (Optional) Tolerations for the Pod created by OLM.
+  tolerations: []
+
+  # -- (Optional) Resource limits and requests for the pod created by OLM.
+  resources: {}
+
+  # -- (Optional) Node selector for the pod created by OLM
+  nodeSelector: {}
 
 # -- (Required) Spot Token
 token: ""

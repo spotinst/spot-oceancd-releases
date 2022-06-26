@@ -7,3 +7,25 @@ spec:
   name: spot-oceancd-operator
   source: spot-oceancd-catalog
   sourceNamespace: {{ .Release.Namespace }}
+  config:
+    {{- with .Values.operator.env }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.envFrom }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.volumes }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.volumeMounts }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.tolerations }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.resources }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
+    {{- with .Values.operator.nodeSelector }}
+      {{- toYaml . | nindent 2 }}
+    {{- end }}
