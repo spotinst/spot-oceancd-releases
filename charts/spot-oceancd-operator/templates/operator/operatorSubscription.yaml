@@ -8,24 +8,31 @@ spec:
   source: spot-oceancd-catalog
   sourceNamespace: {{ .Release.Namespace }}
   config:
+    env:
     {{- with .Values.operator.env }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    envFrom:
     {{- with .Values.operator.envFrom }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    volumes:
     {{- with .Values.operator.volumes }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    volumeMounts:
     {{- with .Values.operator.volumeMounts }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    tolerations:
     {{- with .Values.operator.tolerations }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    resources:
     {{- with .Values.operator.resources }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
+    nodeSelector:
     {{- with .Values.operator.nodeSelector }}
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
