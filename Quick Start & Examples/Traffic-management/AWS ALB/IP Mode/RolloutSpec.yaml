@@ -14,7 +14,7 @@ traffic:
   alb:
     ingress: rollouts-demo-ingress
     servicePort: 80
-    rootService: rollouts-demo-root
+    rootService: rollouts-demo-root  # should be different than the stable service
     stickinessConfig:
       enabled: true
       durationSeconds: 3600

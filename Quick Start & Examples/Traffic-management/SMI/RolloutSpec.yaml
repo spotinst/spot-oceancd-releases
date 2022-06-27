@@ -11,6 +11,6 @@ traffic:
   canaryService: rollouts-demo-canary
   stableService: rollouts-demo-stable
   smi:
-    rootService: rollouts-demo-root
+    rootService: rollouts-demo-root  # should be different than the stable service
 failurePolicy:
   action: abort
