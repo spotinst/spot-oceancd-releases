@@ -8,7 +8,6 @@ spotDeployment:
 strategy:
   name: Strategy-OceanCD
 traffic:
-  stableService: rollouts-demo-stable
   istio:
     virtualServices:
     - name: rollout-vsvc
