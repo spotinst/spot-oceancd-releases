@@ -12,9 +12,7 @@ spec:
     route:
     - destination:
         host: rollouts-demo-stable
-        subset: stable  
       weight: 100
     - destination:
         host: rollouts-demo-stable
-        subset: canary  
       weight: 0
