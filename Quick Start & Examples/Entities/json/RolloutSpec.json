@@ -1,20 +1,35 @@
 {
-    "rolloutSpec": {
-                "name":"RolloutSpec-OceanCD",
-                "spotDeployment": {
-                    "clusterId": "cluster-name",
-                    "namespace": "mynamespace",
-                    "name": "nginx-deployment"
-                },
-                "strategy": {
-                    "name": "Strategy-OceanCD"
-                },
-                "traffic": {
-                    "canaryService": "rollouts-demo-canary",
-                    "stableService": "rollouts-demo-stable"
-                },
-                "failurePolicy": {
-                    "action": "abort"
-                }
+  "rolloutSpec": {
+    "name": "service-rolloutspec",
+    "spotDeployment": {
+      "clusterId": "string",
+      "namespace": "string",
+      "name": "string"
+    },
+    "strategy": {
+      "name": "service-rolloutspec",
+      "args": [
+        {
+          "name": "app",
+          "value": "service",
+          "valueFrom": {
+            "secretRef": {
+              "name": "app-name",
+              "key": "app"
+            },
+            "fieldRef": {
+              "fieldPath": "metadata.labels['app']"
             }
+          }
+        }
+      ]
+    },
+    "traffic": {
+      "canaryService": "canary",
+      "stableService": "stable"
+    },
+    "failurePolicy": {
+      "action": "abort"
+    }
+  }
 }

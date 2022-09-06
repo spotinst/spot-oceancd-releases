@@ -2,23 +2,33 @@
   "strategy": {
     "name": "Strategy-OceanCD",
     "canary": {
+      "backgroundVerification": {
+        "templateNames": [
+          "My-first-verification"
+        ]
+      },
       "steps": [
         {
           "name": "My-first-phase",
           "setWeight": 20,
+          "verification": {
+            "templateNames": [
+              "My-first-verification"
+            ]
+          },
           "pause": {
-            "duration": "2m"
+            "duration": "5m"
           }
         },
         {
-          "setWeight": 40
-        },
-        {
-          "name": "third-phase",
+          "name": "My-second-phase",
           "setWeight": 80,
-          "pause": {
-            "duration": "1m"
-          }
+          "verification": {
+            "templateNames": [
+              "My-first-verification"
+            ]
+          },
+          "pause": {}
         }
       ]
     }
