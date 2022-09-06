@@ -44,6 +44,10 @@ the way your workload changes are being exposed in the desired
 cluster and namespace
 - Define RolloutSpec - An entity including the CD strategy and traffic definitions 
 for the selected SpotDeployment.
+- Define Verification Template - An entity including the metrics you wish to perform while your rollout is in progress. 
+  The verification template is a verification key entity which associates your arguments, queries as well as the monitoring tool of your choice. 
+  Such entity is reusable and can be used and maintained over multiple services and clusters.
+- Define verification provider - An entity including the credentials of the monitoring tool chosen for your cluster. 
   
 **Note:** Any **first** Apply to your SpotDeployments will not trigger a rollout. Only the creation of the pods will be accomplished.
 To trigger a rollout with the entities of your choice, you will need to apply any additional change to the SpotDeployment in question.
