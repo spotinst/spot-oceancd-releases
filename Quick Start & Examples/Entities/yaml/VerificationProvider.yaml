@@ -1,0 +1,8 @@
+kind: verificationProvider
+name: My-verification-provider
+clusterIds:
+- cluster-name
+datadog:
+  address: address-name
+  apiKey: apiKey-Credentials
+  appKey: appKey-Credentials
