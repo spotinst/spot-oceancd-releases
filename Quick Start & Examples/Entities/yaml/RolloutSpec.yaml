@@ -1,11 +1,11 @@
 kind: RolloutSpec
-name: service-rolloutspec
+name: RolloutSpec-OceanCD
 spotDeployment:
-  clusterId: string
-  namespace: string
-  name: string
+  clusterId: cluster-name
+  namespace: mynamespace
+  name: nginx-deployment
 strategy:
-  name: service-rolloutspec
+  name: Strategy-OceanCD
   args:
   - name: app
     value: service
@@ -16,8 +16,8 @@ strategy:
       fieldRef:
         fieldPath: metadata.labels['app']
 traffic:
-  canaryService: canary
-  stableService: stable
+  canaryService: rollouts-demo-canary
+  stableService: rollouts-demo-stable
 failurePolicy:
   action: abort
 
