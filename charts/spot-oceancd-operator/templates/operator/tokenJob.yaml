@@ -19,8 +19,16 @@ spec:
               value: {{ required "A value must be entered for apiUrl" .Values.apiUrl }}
             - name: CLUSTER_ID
               value: {{ required "A value must be entered for clusterId" .Values.clusterId }}
+            {{ if .Values.token -}}
             - name: TOKEN
-              value: {{ required "A value must be entered for token" .Values.token }}
+              value: {{ .Values.token }}
+            {{ else -}}
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name:  {{ required "A value must be entered for token or tokenExistingSecret" .Values.tokenExistingSecret }}
+                  key: spot-token
+            {{ end }}
             - name: SAAS_URL
               value: {{ required "A value must be entered for saasUrl" .Values.saasUrl }}
       restartPolicy: Never

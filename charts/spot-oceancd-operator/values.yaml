@@ -61,8 +61,12 @@ operator:
   # -- (Optional) Node selector for the pod created by OLM
   nodeSelector: {}
 
-# -- (Required) Spot Token
+# -- (Optional) Spot token
 token: ""
+
+# -- (Optional) Use existing Secret which stores spot token. The value should be set with the `spot-token` key inside the secret.
+## If set, this parameter takes precedence over "token".
+tokenExistingSecret: ""
 
 # -- (Optional) Saas URL
 saasUrl: https://cluster-gateway.oceancd.io
