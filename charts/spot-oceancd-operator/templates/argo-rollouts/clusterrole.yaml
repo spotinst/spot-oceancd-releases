@@ -44,6 +44,7 @@ rules:
   - get
   - list
   - watch
+# replicaset access needed for managing ReplicaSets
 - apiGroups:
   - apps
   resources:
@@ -56,6 +57,7 @@ rules:
   - update
   - patch
   - delete
+# deployments and podtemplates read access needed for workload reference support
 - apiGroups:
   - ""
   - apps
@@ -66,6 +68,8 @@ rules:
   - get
   - list
   - watch
+# services patch needed to update selector of canary/stable/active/preview services
+# services create needed to create and delete services for experiments
 - apiGroups:
   - ""
   resources:
@@ -77,6 +81,7 @@ rules:
   - patch
   - create
   - delete
+# leases create/get/update needed for leader election
 - apiGroups:
   - coordination.k8s.io
   resources:
@@ -85,6 +90,7 @@ rules:
   - create
   - get
   - update
+# secret access to run analysis templates which reference secrets, allow init containers to manipulate secrets
 - apiGroups:
   - ""
   resources:
@@ -94,6 +100,10 @@ rules:
   - get
   - list
   - watch
+  - create
+  - patch
+  - update
+# pod list/update needed for updating ephemeral data
 - apiGroups:
   - ""
   resources:
@@ -101,12 +111,14 @@ rules:
   verbs:
   - list
   - update
+# pods eviction needed for restart
 - apiGroups:
   - ""
   resources:
   - pods/eviction
   verbs:
   - create
+# event write needed for emitting events
 - apiGroups:
   - ""
   resources:
@@ -115,6 +127,7 @@ rules:
   - create
   - update
   - patch
+# ingress patch needed for managing ingress annotations, create needed for nginx canary
 - apiGroups:
   - networking.k8s.io
   - extensions
@@ -126,6 +139,7 @@ rules:
   - list
   - watch
   - patch
+# job access needed for analysis template job metrics
 - apiGroups:
   - batch
   resources:
@@ -138,6 +152,7 @@ rules:
   - update
   - patch
   - delete
+# virtualservice/destinationrule access needed for using the Istio provider
 - apiGroups:
   - networking.istio.io
   resources:
@@ -149,6 +164,7 @@ rules:
   - update
   - patch
   - list
+# trafficsplit access needed for using the SMI provider
 - apiGroups:
   - split.smi-spec.io
   resources:
@@ -159,6 +175,7 @@ rules:
   - get
   - update
   - patch
+# ambassador access needed for Ambassador provider
 - apiGroups:
   - getambassador.io
   - x.getambassador.io
@@ -172,6 +189,7 @@ rules:
   - update
   - list
   - delete
+# Endpoints and TargetGroupBindings needed for ALB target group verification
 - apiGroups:
   - ""
   resources:
@@ -185,6 +203,7 @@ rules:
   verbs:
   - list
   - get
+# AppMesh virtualservices/virtualrouter CRD read-only access needed for using the App Mesh provider
 - apiGroups:
   - appmesh.k8s.aws
   resources:
@@ -193,6 +212,7 @@ rules:
   - watch
   - get
   - list
+# AppMesh virtualnode CRD r/w access needed for using the App Mesh provider
 - apiGroups:
   - appmesh.k8s.aws
   resources:
