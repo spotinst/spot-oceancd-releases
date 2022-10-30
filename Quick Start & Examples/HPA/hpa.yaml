@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-hpa
+spec:
+  maxReplicas: 6
+  minReplicas: 2
+  scaleTargetRef:
+    apiVersion: spot.io/v1beta1
+    kind: SpotDeployment
+    name: nginx
+  targetCPUUtilizationPercentage: 20
