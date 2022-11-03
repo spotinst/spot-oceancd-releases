@@ -9,6 +9,10 @@ metadata:
     "helm.sh/hook": pre-delete
 spec:
   template:
+    metadata:
+      labels:
+        app: spot-oceancd-operator-token-delete
+        {{- include "spot-oceancd-operator.labels" . | nindent 4 }}
     spec:
       containers:
         - name: spot-oceancd-operator-token-delete

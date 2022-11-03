@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/name: argo-rollouts
     spec:
       containers:
-      - image: public.ecr.aws/k3o7w5d5/argo-rollouts
+      - image: public.ecr.aws/oceancd/argo-rollouts
         imagePullPolicy: Always
         args:
         {{- with .Values.argoRollouts.deployment.extraArgs }}
