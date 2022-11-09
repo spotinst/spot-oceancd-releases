@@ -9,6 +9,10 @@ metadata:
     "helm.sh/hook": pre-install
 spec:
   template:
+    metadata:
+      labels:
+        app: spot-oceancd-operator-token-generator
+        {{- include "spot-oceancd-operator.labels" . | nindent 8 }}
     spec:
       containers:
         - name: spot-oceancd-operator-token-generator
