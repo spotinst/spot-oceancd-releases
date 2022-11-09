@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   spot-oceancd-operator:
   - apiVersion: v2
+    appVersion: 1.3.3
+    created: "2022-11-09T15:26:16.254464254Z"
+    description: A Helm chart for spot-oceancd-operator
+    digest: c8b8f94b5322be411dbaa3c4304171985183a2da4141791bcfbd8e43e4c9091f
+    name: spot-oceancd-operator
+    type: application
+    urls:
+    - https://github.com/spotinst/spot-oceancd-releases/releases/download/spot-oceancd-operator-1.3.3/spot-oceancd-operator-1.3.3.tgz
+    version: 1.3.3
+  - apiVersion: v2
     appVersion: 1.3.2
     created: "2022-11-03T13:39:42.626485793Z"
     description: A Helm chart for spot-oceancd-operator
