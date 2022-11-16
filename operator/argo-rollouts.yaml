@@ -14439,6 +14439,11 @@ spec:
       status: {}
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo-rollouts
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
@@ -14446,6 +14451,7 @@ metadata:
     app.kubernetes.io/name: argo-rollouts
     app.kubernetes.io/part-of: argo-rollouts
   name: argo-rollouts
+  namespace: argo-rollouts
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -14767,6 +14773,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: argo-rollouts-notification-secret
+  namespace: argo-rollouts
 ---
 apiVersion: v1
 kind: Service
@@ -14776,6 +14783,7 @@ metadata:
     app.kubernetes.io/name: argo-rollouts-metrics
     app.kubernetes.io/part-of: argo-rollouts
   name: argo-rollouts-metrics
+  namespace: argo-rollouts
 spec:
   ports:
   - name: metrics
@@ -14793,6 +14801,7 @@ metadata:
     app.kubernetes.io/name: argo-rollouts
     app.kubernetes.io/part-of: argo-rollouts
   name: argo-rollouts
+  namespace: argo-rollouts
 spec:
   replicas: 1
   selector:
