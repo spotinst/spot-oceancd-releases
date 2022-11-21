@@ -3,6 +3,9 @@ argoRollouts:
   # -- (Optional) If create argo-rollouts
   create: true
 
+  # -- (Optional) If create argo-rollouts namespace
+  createNamespace: true
+
   serviceAccount:
 
     # -- (Optional) Service Account Annotations
