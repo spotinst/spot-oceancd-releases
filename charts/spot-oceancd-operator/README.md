@@ -58,6 +58,7 @@ kubectl delete -f https://github.com/operator-framework/operator-lifecycle-manag
 |-----|------|---------|-------------|
 | apiUrl | string | `"https://api.spotinst.io"` | (Optional) Spot Api URL |
 | argoRollouts.create | bool | `true` | (Optional) If create argo-rollouts |
+| argoRollouts.createNamespace | bool | `true` | (Optional) If create argo-rollouts namespace |
 | argoRollouts.deployment.affinity | object | `{}` | (Optional) Assign custom [affinity] rules to the argo rollout deployment |
 | argoRollouts.deployment.containerSecurityContext | object | `{}` | (Optional) Security Context to set on container level |
 | argoRollouts.deployment.extraArgs | list | `[]` | (Optional) Additional command line arguments to pass to rollouts-controller.  A list of flags. |

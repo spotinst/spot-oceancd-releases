@@ -1,4 +1,4 @@
-{{- if .Values.argoRollouts.create }}
+{{- if and .Values.argoRollouts.create .Values.argoRollouts.createNamespace }}
 apiVersion: v1
 kind: Namespace
 metadata:
