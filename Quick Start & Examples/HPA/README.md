@@ -1,4 +1,4 @@
-##HPA
+## HPA
 
 In Kubernetes, a HorizontalPodAutoscaler automatically updates a workload resource (such as a Deployment or StatefulSet),
 with the aim of automatically scaling the workload to match demand.
