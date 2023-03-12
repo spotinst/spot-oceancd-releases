@@ -1,0 +1,20 @@
+kind: "VerificationTemplate"
+name: "web-vt"
+args:
+  - name: "service-name"
+  - name: "api-token"
+metrics:
+  - name: "Webhook automation test trigger"
+    interval: "4s"
+    count: 6
+    successCondition: "result.ok && result.successPercent > 0.94"
+    failureLimit: 3
+    provider:
+      web:
+        method: "GET"
+        url: "http://my-server.com/api/v1/measurement?service={{ args.service-name }}"
+        headers:
+          - key: Authorization
+            value: "Bearer {{ args.api-token }}"
+        jsonPath: "{$.data}"
+        insecure: false

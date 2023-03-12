@@ -1,0 +1,19 @@
+kind: Strategy
+name: "Strategy-Verification-Datadog"
+canary:
+  steps:
+    - name: "My-first-phase"
+      setWeight: 20
+      verification:
+        templateNames:
+          - "datadog-vt"
+    - name: "My-second-phase"
+      setWeight: 40
+    - name: "third-phase"
+      setWeight: 60
+      pause:
+        duration: 45s
+    - name: "fourth-phase"
+      setWeight: 80
+    - name: "fifth-phase"
+      setWeight: 100

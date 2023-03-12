@@ -1,0 +1,14 @@
+kind: "VerificationTemplate"
+name: "datadog-vt"
+args:
+  - name: "namespace"
+metrics:
+  - name: "pod-health"
+    dryRun: true
+    interval: "5s"
+    count: 10
+    successCondition: "result >= 1"
+    failureLimit: 8
+    provider:
+      datadog:
+        query: "avg:kubernetes.pods.running{kube_namespace:{{args.namespace}}}"

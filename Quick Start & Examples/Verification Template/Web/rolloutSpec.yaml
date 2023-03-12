@@ -1,0 +1,20 @@
+kind: RolloutSpec
+name: "rollout-web"
+spotDeployment:
+  clusterId: "test"
+  namespace: "test"
+  name: "test"
+strategy:
+  name: "Strategy-Verification-web
+  args:
+    - name: service-name
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name"
+    - name: api-token
+      valueFrom:
+        secretKeyRef:
+          name: token-secret
+          key: apiToken
+failurePolicy:
+  action: abort

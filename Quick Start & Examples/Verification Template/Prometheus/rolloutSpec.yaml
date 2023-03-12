@@ -1,0 +1,10 @@
+kind: RolloutSpec
+name: "rollout-prometheus"
+spotDeployment:
+  clusterId: "test"
+  namespace: "test"
+  name: "test"
+strategy:
+  name: "Strategy-Verification-Prometheus"
+failurePolicy:
+  action: abort

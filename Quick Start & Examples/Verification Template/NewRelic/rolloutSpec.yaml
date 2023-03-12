@@ -1,0 +1,15 @@
+kind: RolloutSpec
+name: "rollout-newrelic"
+spotDeployment:
+  clusterId: "test"
+  namespace: test
+  name: "test"
+strategy:
+  name: "Strategy-Verification-NewRelic"
+  args:
+    - name: spotdeployment
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+failurePolicy:
+  action: abort

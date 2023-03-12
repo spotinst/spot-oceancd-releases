@@ -1,0 +1,13 @@
+kind: RolloutSpec
+name: "rollout-cw"
+spotDeployment:
+  clusterId: "test"
+  namespace: test
+  name: "test"
+strategy:
+  name: "Strategy-Verification-CW"
+  args:
+    - name: lb_name
+      value: test_id
+failurePolicy:
+  action: abort
