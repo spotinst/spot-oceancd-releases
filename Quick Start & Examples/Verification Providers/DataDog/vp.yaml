@@ -1,0 +1,8 @@
+kind: "VerificationProvider"
+name: "datadog-vp"
+clusters:
+  - "test"
+datadog:
+  address: "https://api.datadoghq.com"
+  apiKey: apiKey
+  appKey: appKey

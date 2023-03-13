@@ -1,0 +1,6 @@
+kind: "VerificationProvider"
+name: "prometheus-vp"
+clusters:
+  - "test"
+prometheus:
+  address: "http://ip:port"
