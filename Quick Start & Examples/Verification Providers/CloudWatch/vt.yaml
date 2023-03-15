@@ -1,0 +1,24 @@
+kind: "VerificationTemplate"
+name: "cw-vt"
+args:
+  - name: "lb_name"
+metrics:
+  - name: "EstimatedALBNewConnectionCount"
+    interval: "5s"
+    count: 5
+    successCondition: "all(result[0].Values, {# > 0})"
+    failureLimit: 2
+    provider:
+      cloudWatch:
+        metricDataQueries:
+          - id: "estimated"
+            metricStat:
+              metric:
+                metricName: "EstimatedALBNewConnectionCount"
+                namespace: "AWS/ELB"
+                dimensions:
+                  - name: "LoadBalancerName"
+                    value: "{{args.lb_name}}"
+              period: 600
+              stat: "Average"
+            returnData: true

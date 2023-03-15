@@ -1,0 +1,13 @@
+kind: "VerificationTemplate"
+name: "newrelic-vt"
+args:
+  - name: "spotdeployment"
+metrics:
+  - name: "cpu-utilization"
+    interval: "1m"
+    count: 3
+    successCondition: "result.successRate <= 90"
+    failureLimit: 2
+    provider:
+      newRelic:
+        query: "SELECT latest(`k8s.container.cpuRequestedCores`) as successRate FROM Metric FACET `tags.app` WHERE `tags.app` = '{{args.spotdeployment}}'"

@@ -1,0 +1,18 @@
+kind: "VerificationTemplate"
+name: "job-vt"
+metrics:
+  - name: "job-analysis"
+    interval: "60s"
+    count: 3
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+                - command:
+                    - my-test-script
+                  image: my-image:latest
+                  name: test
+              restartPolicy: "Never"

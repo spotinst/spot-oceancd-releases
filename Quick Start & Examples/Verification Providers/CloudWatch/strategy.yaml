@@ -1,0 +1,19 @@
+kind: Strategy
+name: "Strategy-Verification-CW"
+canary:
+  backgroundVerification:
+    templateNames:
+      - "cw-vt"
+  steps:
+    - name: "set-weight-1"
+      setWeight: 30
+    - name: "set-weight-2"
+      setWeight: 40
+      pause:
+        duration: 1m
+    - name: "set-weight-3"
+      setWeight: 60
+    - name: "set-weight-4"
+      setWeight: 80
+    - name: "set-weight-final"
+      setWeight: 100

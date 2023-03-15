@@ -1,0 +1,15 @@
+kind: RolloutSpec
+name: "rollout-datadog"
+spotDeployment:
+  clusterId: "test"
+  namespace: test
+  name: "test"
+strategy:
+  name: "Strategy-Verification-Datadog"
+  args:
+    - name: namespace
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+failurePolicy:
+  action: abort

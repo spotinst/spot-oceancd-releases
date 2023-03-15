@@ -1,0 +1,15 @@
+kind: Strategy
+name: "Strategy-Verification-Job"
+canary:
+  steps:
+    - name: first
+      setWeight: 20
+    - name: second
+      verification:
+        templateNames:
+          - "job-vt"
+    - name: third
+      setWeight: 100
+      verification:
+        templateNames:
+          - "job-vt"

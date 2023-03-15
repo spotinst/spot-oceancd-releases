@@ -1,0 +1,8 @@
+kind: "VerificationProvider"
+name: "newrelic-vp"
+clusters:
+  - "test"
+newRelic:
+  personalApiKey: personalApiKey
+  accountId: accountId
+  region: "us"

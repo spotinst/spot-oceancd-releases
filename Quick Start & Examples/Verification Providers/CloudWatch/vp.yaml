@@ -1,0 +1,6 @@
+kind: "VerificationProvider"
+name: "cloudWatch-vp"
+clusters:
+  - "test"
+cloudWatch:
+  iamArn: iamArn

@@ -1,0 +1,10 @@
+kind: RolloutSpec
+name: "rollout-job"
+spotDeployment:
+  clusterId: "test"
+  namespace: test
+  name: "test"
+strategy:
+  name: "Strategy-Verification-Job"
+failurePolicy:
+  action: abort
