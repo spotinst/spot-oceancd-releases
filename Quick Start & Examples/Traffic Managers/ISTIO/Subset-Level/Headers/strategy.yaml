@@ -1,0 +1,33 @@
+strategy:
+  name: headers-strategy
+  canary:
+    steps:
+      - name: first
+        setWeight: 25
+        setHeaderRoute:
+          name: set-header-1
+          match:
+            - headerName: User-Agent
+              headerValue:
+                regex: "(.*)Mozilla(.*)"
+            - headerName: Alfa-Tester
+              headerValue:
+                exact: Enable
+            - headerName: User
+              headerValue:
+                prefix: CEO
+        pause: { }
+      - name: second
+        setHeaderRoute:
+          name: set-header-2
+          match:
+            - headerName: User-Agent
+              headerValue:
+                regex: "(.*)Explorer(.*)"
+            - headerName: Beta-Tester
+              headerValue:
+                prefix: enable
+        setWeight: 75
+        pause: { }
+      - name: third
+        setWeight: 100
