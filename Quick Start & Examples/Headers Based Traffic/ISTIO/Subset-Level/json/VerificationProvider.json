@@ -1,0 +1,13 @@
+{
+  "verificationProvider": {
+    "name": "My-verification-provider",
+    "clusterIds": [
+      "clusterId"
+    ],
+    "datadog": {
+      "address": "address-name",
+      "apiKey": "apiKey-Credentials",
+      "appKey": "appKey-Credentials"
+    }
+  }
+}

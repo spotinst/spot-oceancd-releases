@@ -4,6 +4,9 @@ strategy:
     steps:
       - name: first
         setWeight: 25
+        verification:
+          templateNames:
+            - My-first-verification
         setHeaderRoute:
           name: set-header-1
           match:
@@ -23,7 +26,7 @@ strategy:
           match:
             - headerName: User-Agent
               headerValue:
-                regex: "(.*)Explorer(.*)"
+                regex: "(.*)explorer(.*)"
             - headerName: Beta-Tester
               headerValue:
                 prefix: enable

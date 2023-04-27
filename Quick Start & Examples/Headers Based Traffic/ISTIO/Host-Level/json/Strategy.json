@@ -6,6 +6,11 @@
         {
           "name": "first",
           "setWeight": 25,
+          "verification": {
+            "templateNames": [
+              "My-first-verification"
+            ]
+          },
           "setHeaderRoute": {
             "name": "set-header-1",
             "match": [
