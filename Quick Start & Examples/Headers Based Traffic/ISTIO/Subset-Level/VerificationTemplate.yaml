@@ -1,0 +1,17 @@
+kind: verificationTemplate
+name: My-first-verification
+args:
+  - name: My-argument
+metrics:
+  - name: My-first-metric
+    interval: 5m
+    initialDelay: 1m
+    count: 10
+    successCondition: result[0] <= 0.95
+    failureCondition: result[0] >= 1.2
+    failureLimit: 0
+    inconclusiveLimit: 0
+    consecutiveErrorLimit: 0
+    provider:
+      prometheus:
+        query: My-query
