@@ -1,0 +1,16 @@
+rolloutSpec:
+  name: headers-rolloutSpec
+  spotDeployment:
+    clusterId: clusterId
+    namespace: headers-demo
+    name: spotdeployment-headers-demo
+  strategy:
+    name: headers-strategy
+  traffic:
+    canaryService: canary-service-headers
+    stableService: stable-service-headers
+    istio:
+      virtualServices:
+        - name: rollout-vsvc
+          routes:
+            - primary
