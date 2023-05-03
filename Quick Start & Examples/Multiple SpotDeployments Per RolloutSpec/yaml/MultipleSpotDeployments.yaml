@@ -1,0 +1,27 @@
+kind: RolloutSpec
+name: MultipleSpotDeploymentsPerRolloutSpec-OceanCD
+spotDeployments:
+  - clusterId: cluster-name-1
+    namespace: mynamespace-1
+    name: nginx-deployment-1
+  - clusterId: cluster-name-1
+    namespace: mynamespace-1
+    name: nginx-deployment-2
+  - clusterId: cluster-name-3
+    namespace: mynamespace-3
+    name: nginx-deployment-3
+strategy:
+  name: Strategy-OceanCD
+  args:
+  - name: app
+    value: service
+    valueFrom:
+      secretRef:
+        name: app-name
+        key: app
+      fieldRef:
+        fieldPath: metadata.labels['app']
+failurePolicy:
+  action: abort
+
+    
