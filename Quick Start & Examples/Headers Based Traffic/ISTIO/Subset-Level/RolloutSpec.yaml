@@ -1,18 +1,18 @@
-rolloutSpec:
-  name: headers-rolloutSpec
-  spotDeployment:
-    clusterId: clusterId
-    namespace: headers-demo
-    name: spotdeployment-headers-demo
-  strategy:
-    name: lio-headers-strategy
-  traffic:
-    istio:
-      virtualServices:
-        - name: rollout-vsvc
-          routes:
-            - primary
-      destinationRule:
-        name: rollout-destrule
-        canarySubsetName: canary-service-headers
-        stableSubsetName: stable-service-headers
+kind: RolloutSpec
+name: headers-rolloutSpec
+spotDeployment:
+  clusterId: clusterId
+  namespace: headers-demo
+  name: spotdeployment-headers-demo
+strategy:
+  name: lio-headers-strategy
+traffic:
+  istio:
+    virtualServices:
+      - name: rollout-vsvc
+        routes:
+          - primary
+    destinationRule:
+      name: rollout-destrule
+      canarySubsetName: canary-service-headers
+      stableSubsetName: stable-service-headers
