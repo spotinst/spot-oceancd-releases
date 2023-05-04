@@ -5,7 +5,7 @@ spotDeployment:
   namespace: "test"
   name: "test"
 strategy:
-  name: "Strategy-Verification-web
+  name: "Strategy-Verification-web"
   args:
     - name: service-name
       valueFrom:
