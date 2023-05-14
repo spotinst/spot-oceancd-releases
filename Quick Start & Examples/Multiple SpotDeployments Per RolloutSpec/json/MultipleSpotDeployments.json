@@ -25,10 +25,6 @@
           "name": "app",
           "value": "service",
           "valueFrom": {
-            "secretRef": {
-              "name": "app-name",
-              "key": "app"
-            },
             "fieldRef": {
               "fieldPath": "metadata.labels['app']"
             }
