@@ -1,0 +1,6 @@
+kind: verificationProvider
+name: My-verification-provider
+clusterIds:
+- cluster-name
+prometheus:
+  address: address-name

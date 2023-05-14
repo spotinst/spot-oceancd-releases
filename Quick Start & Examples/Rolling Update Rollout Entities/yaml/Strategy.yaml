@@ -1,0 +1,15 @@
+kind: Strategy
+name: rolling-update-simple
+canary:
+  steps:
+  - name: My-first-phase
+    verification:
+      templateNames:
+      - My-first-verification
+    pause:
+      duration: 5m
+  - name: My-second-phase
+    verification:
+      templateNames:
+      - My-first-verification
+    pause: {}

@@ -1,0 +1,16 @@
+{
+  "rolloutSpec": {
+    "name": "service-rolloutspec",
+    "spotDeployment": {
+      "clusterId": "string",
+      "namespace": "string",
+      "name": "string"
+    },
+    "strategy": {
+      "name": "rolling-update-simple"
+    },
+    "failurePolicy": {
+      "action": "abort"
+    }
+  }
+}
