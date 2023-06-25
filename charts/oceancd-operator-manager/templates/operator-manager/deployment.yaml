@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  {{- with .Values.operatorManager.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "oceancd-operator-manager.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: oceancd-operator-manager
+    {{- include "oceancd-operator-manager.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: oceancd-operator-manager
+      {{- include "oceancd-operator-manager.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: RollingUpdate
+  replicas: {{ .Values.operatorManager.replicas }}
+  template:
+    metadata:
+      {{- with .Values.operatorManager.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "oceancd-operator-manager.selectorLabels" . | nindent 8 }}
+        app: oceancd-operator-manager
+        {{- range $key, $value := .Values.operatorManager.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+    spec:
+      {{- with .Values.operatorManager.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "oceancd-operator-manager.serviceAccountName" . }}
+      containers:
+      - image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        {{- with .Values.operatorManager.extraEnv }}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        name: oceancd-operator-manager
+        ports:
+        - containerPort: {{ .Values.operatorManager.containerPorts.http }}
+          name: http
+        livenessProbe:
+          {{- toYaml .Values.operatorManager.livenessProbe | nindent 10 }}
+        readinessProbe:
+          {{- toYaml .Values.operatorManager.readinessProbe | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.operatorManager.containerSecurityContext | nindent 10 }}
+        resources:
+          {{- toYaml .Values.operatorManager.resources | nindent 10 }}
+        volumeMounts:
+          - name: oceancd-operator-manager-config
+            mountPath: /config
+            readOnly: true
+          {{- with .Values.operatorManager.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if .Values.operatorManager.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.operatorManager.nodeSelector | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.operatorManager.podSecurityContext | nindent 8 }}
+      {{- if .Values.operatorManager.tolerations }}
+      tolerations:
+        {{- toYaml .Values.operatorManager.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operatorManager.affinity }}
+      affinity:
+        {{- toYaml .Values.operatorManager.affinity | nindent 8 }}
+      {{- end }}
+      {{- with .Values.operatorManager.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+      - {{ toYaml $constraint | nindent 8 | trim }}
+        {{- if not $constraint.labelSelector }}
+        labelSelector:
+          matchLabels:
+            app: oceancd-operator-manager
+            {{- include "oceancd-operator-manager.selectorLabels" $ | nindent 12 }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- with .Values.operatorManager.priorityClassName }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      volumes:
+        - name: oceancd-operator-manager-config
+          configMap:
+            name: oceancd-operator-manager-config
+        {{- with .Values.operatorManager.extraVolumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}

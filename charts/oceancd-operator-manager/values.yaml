@@ -1,0 +1,86 @@
+operatorManager:
+  replicas: 1
+  deploymentAnnotations: {}
+  podAnnotations: {}
+  podLabels: {}
+  imagePullSecrets: []
+  image: 
+    registry: ""
+    repository: ""
+    tag: ""
+    pullPolicy: ""
+  extraEnv: []
+  containerPorts:
+    http: 8080
+  livenessProbe: {}
+  readinessProbe: {}
+  containerSecurityContext: {}
+  resources: {}
+  extraVolumeMounts: []
+  nodeSelector: {}
+  podSecurityContext: 
+    runAsNonRoot: true
+  tolerations: []
+  affinity: {}
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+
+  token: ""
+
+  tokenExistingSecret: ""
+
+  saasUrl: https://cluster-gateway.oceancd.io
+
+  apiUrl: https://api.spotinst.io
+
+  clusterId: ""
+  
+operator: 
+  nodeSelector: {}
+  affinity: {}
+  resources: {}
+  tolerations: []
+  extraEnv: []
+  labels: {}
+  imagePullSecrets: []
+  keepCRDs: true
+  annotations: {}
+  serviceAccountAnnotations: {}
+
+argoRollouts: 
+  controller:
+    nodeSelector: {}
+    affinity: {}
+    resources: {}
+    tolerations: []
+    labels: {}
+    crdAnnotations: {}
+    deploymentAnnotations: {}
+    podAnnotations: {}
+    extraEnv: []
+    extraArgs: []
+    containerSecurityContext: {}
+    service: 
+      annotations: {}
+    imagePullSecrets: []
+    installCRDs: true
+    keepCRDs: true
+  
+  dashboard: 
+    enabled: false
+    nodeSelector: {}
+    affinity: {}
+    resources: {}
+    tolerations: []
+    labels: {}
+    deploymentAnnotations: {}
+    podAnnotations: {}
+    extraEnv: []
+    containerSecurityContext: {}
+    imagePullSecrets: [] 
+

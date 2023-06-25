@@ -1,0 +1,155 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oceancd-operator-manager-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: oceancd-operator-manager
+    {{- include "oceancd-operator-manager.labels" . | nindent 4 }}
+data:
+  operator.yml: |
+    {{- if .Values.operator.nodeSelector }}
+    nodeSelector:
+      {{- toYaml .Values.operator.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.affinity }}
+    affinity:
+      {{- toYaml .Values.operator.affinity | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.resources }}
+    resources:
+      {{- toYaml .Values.operator.resources | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.tolerations }}
+    tolerations:
+      {{- toYaml .Values.operator.tolerations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.extraEnv }}
+    env:
+      {{- toYaml .Values.operator.extraEnv | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.labels }}
+    labels:
+      {{- toYaml .Values.operator.labels | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.imagePullSecrets }}
+    imagePullSecrets:
+      {{- toYaml .Values.operator.imagePullSecrets | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.keepCRDs }}
+    keepCRDs: {{.Values.operator.keepCRDs}}
+    {{- end }}
+    {{- if .Values.operator.annotations }}
+    annotations:
+      {{- toYaml .Values.operator.annotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.operator.serviceAccountAnnotations }}
+    serviceAccountAnnotations:
+      {{- toYaml .Values.operator.serviceAccountAnnotations | nindent 4 }}
+    {{- end }}
+  argoRollouts.controller.yml: |
+    {{- if .Values.argoRollouts.controller.nodeSelector }}
+    nodeSelector:
+      {{- toYaml .Values.argoRollouts.controller.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.affinity }}
+    affinity:
+      {{- toYaml .Values.argoRollouts.controller.affinity | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.resources }}
+    resources:
+      {{- toYaml .Values.argoRollouts.controller.resources | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.tolerations }}
+    tolerations:
+      {{- toYaml .Values.argoRollouts.controller.tolerations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.labels }}
+    labels:
+      {{- toYaml .Values.argoRollouts.controller.labels | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.crdAnnotations }}
+    crdAnnotations:
+      {{- toYaml .Values.argoRollouts.controller.crdAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.deploymentAnnotations }}
+    deploymentAnnotations:
+      {{- toYaml .Values.argoRollouts.controller.deploymentAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.podAnnotations }}
+    podAnnotations:
+      {{- toYaml .Values.argoRollouts.controller.podAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.extraEnv }}
+    extraENV:
+      {{- toYaml .Values.argoRollouts.controller.extraEnv | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.extraArgs }}
+    extraArgs:
+      {{- toYaml .Values.argoRollouts.controller.extraArgs | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.containerSecurityContext }}
+    containerSecurityContext:
+      {{- toYaml .Values.argoRollouts.controller.containerSecurityContext | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.service.annotations }}
+    serviceAnnotations:
+      {{- toYaml .Values.argoRollouts.controller.service.annotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.controller.imagePullSecrets }}
+    imagePullSecrets:
+      {{- toYaml .Values.argoRollouts.controller.imagePullSecrets | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.installCRDs }}
+    installCRDs:
+      {{- toYaml .Values.argoRollouts.installCRDs | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.keepCRDs }}
+    keepCRDs:
+      {{- toYaml .Values.argoRollouts.keepCRDs | nindent 4 }}
+    {{- end }}
+  argoRollouts.dashboard.yml: |
+    {{- if .Values.argoRollouts.dashboard.enabled }}
+    enabled:
+      {{- toYaml .Values.argoRollouts.dashboard.enabled | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.nodeSelector }}
+    nodeSelector:
+      {{- toYaml .Values.argoRollouts.dashboard.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.affinity }}
+    affinity:
+      {{- toYaml .Values.argoRollouts.dashboard.affinity | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.resources }}
+    resources:
+      {{- toYaml .Values.argoRollouts.dashboard.resources | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.tolerations }}
+    tolerations:
+      {{- toYaml .Values.argoRollouts.dashboard.tolerations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.labels }}
+    labels:
+      {{- toYaml .Values.argoRollouts.dashboard.labels | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.deploymentAnnotations }}
+    deploymentAnnotations:
+      {{- toYaml .Values.argoRollouts.dashboard.deploymentAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.podAnnotations }}
+    podAnnotations:
+      {{- toYaml .Values.argoRollouts.dashboard.podAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.extraEnv }}
+    env:
+      {{- toYaml .Values.argoRollouts.dashboard.extraE | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.containerSecutiryContext }}
+    containerSecutiryContext:
+      {{- toYaml .Values.argoRollouts.dashboard.containerSecutiryContext | nindent 4 }}
+    {{- end }}
+    {{- if .Values.argoRollouts.dashboard.imagePullSecrets }}
+    imagePullSecrets:
+      {{- toYaml .Values.argoRollouts.dashboard.imagePullSecrets | nindent 4 }}
+    {{- end }}

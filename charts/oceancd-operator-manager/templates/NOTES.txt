@@ -1,0 +1,2 @@
+Check pods is Running:
+  kubectl get pods -n {{ .Release.Namespace }}
