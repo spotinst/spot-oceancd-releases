@@ -4,6 +4,7 @@
 - [HPA](#hpa)
 - [Multiple SpotDeployments per RolloutSpec](#multiple-spotdeployments-per-rolloutspec)
 - [Strategy override](#strategy-override)
+- [Secrets As Part of Arguments](#secrets-as-part-of-arguments)
 
 ### Header based traffic
 
@@ -34,6 +35,7 @@ This feature allows you to set as many clusters, namespaces and SpotDeployments 
 Multiple SpotDeployments enable all the configured SpotDeployments to use the same services, strategies, arguments as well as failure policies.
 
 > **Note**:
+>
 > - Every SpotDeployment in RolloutSpec has to be unique.
 > - If more than one SpotDeployment has been configured, no traffic managers can be set as part of the RolloutSpec. For such case ensure that each of the chosen SpotDeployments are being exposed with different Kubernetes services.
 > - Changes in RolloutSpec or Strategy (that belongs to RolloutSpec with multiple SpotDeployments) will be applied on all SpotDeployments belonging to the RolloutSpec.
@@ -50,5 +52,16 @@ As long as the annotation exists, the overridden strategy will be used as part o
 > **Note**:
 > If the strategy added as part of the annotation does not exist, the one set as part of the RolloutSpec will be used.
 
-
 Example of the referenced annotation you can find [here](./strategy_override).
+
+### Secrets As Part of Arguments
+
+When you need to get a verification arg's value from a secret you can set it directly in the VerificationTemplate using
+the `secretKeyRef` field
+
+> **Note**:
+> 
+> - This can only be done from VerificationTemplate you cannot set it from RolloutSpec
+> - Once you set the value of the arg inside VerificationTemplate you don't need to repeat it in the RolloutSpec
+
+See the [related templates](./secrets_as_part_of_arguments)

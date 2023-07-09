@@ -1,0 +1,10 @@
+kind: "RolloutSpec"
+name: nginx-rs
+spotDeployments:
+  - clusterId: prod-nginx-cluster
+    namespace: nginx
+    name: nginx
+strategy:
+  name: nginx-strategy
+failurePolicy:
+  action: abort
