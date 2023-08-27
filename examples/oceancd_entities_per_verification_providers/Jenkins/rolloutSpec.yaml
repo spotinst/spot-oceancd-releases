@@ -1,0 +1,12 @@
+kind: RolloutSpec
+name: "rollout-jenkins"
+spotDeployment:
+  clusterId: "test"
+  namespace: "test"
+  name: "test"
+strategy:
+  name: "Strategy-Verification-Jenkins"
+traffic:
+  stableService: "stable-service"
+failurePolicy:
+  action: abort
