@@ -4,7 +4,7 @@ operatorManager:
   podAnnotations: {}
   podLabels: {}
   imagePullSecrets: []
-  image: 
+  image:
     registry: ""
     repository: ""
     tag: ""
@@ -18,7 +18,7 @@ operatorManager:
   resources: {}
   extraVolumeMounts: []
   nodeSelector: {}
-  podSecurityContext: 
+  podSecurityContext:
     runAsNonRoot: true
   tolerations: []
   affinity: {}
@@ -39,8 +39,8 @@ operatorManager:
   apiUrl: https://api.spotinst.io
 
   clusterId: ""
-  
-operator: 
+
+operator:
   nodeSelector: {}
   affinity: {}
   resources: {}
@@ -52,35 +52,49 @@ operator:
   annotations: {}
   serviceAccountAnnotations: {}
 
-argoRollouts: 
+argoRollouts:
+  general:
+    podLabels: {}
+    podAnnotations: {}
+    serviceLabels: {}
+    serviceAnnotations: {}
+    labels: {}
+    installCRDs: true
+    keepCRDs: true
   controller:
     nodeSelector: {}
     affinity: {}
     resources: {}
     tolerations: []
-    labels: {}
-    crdAnnotations: {}
-    deploymentAnnotations: {}
-    podAnnotations: {}
     extraEnv: []
     extraArgs: []
     containerSecurityContext: {}
-    service: 
-      annotations: {}
     imagePullSecrets: []
-    installCRDs: true
-    keepCRDs: true
-  
-  dashboard: 
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: healthz
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /metrics
+        port: metrics
+      initialDelaySeconds: 15
+      periodSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 4
+
+  dashboard:
     enabled: false
     nodeSelector: {}
     affinity: {}
     resources: {}
     tolerations: []
-    labels: {}
-    deploymentAnnotations: {}
-    podAnnotations: {}
     extraEnv: []
     containerSecurityContext: {}
-    imagePullSecrets: [] 
-
+    imagePullSecrets: []
