@@ -1,0 +1,8 @@
+kind: "VerificationProvider"
+name: "Jenkins-vp"
+clusters:
+  - "test"
+jenkins:
+  baseUrl: "http://ip:port"
+  username: userName
+  apiToken: apiToken

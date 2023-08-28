@@ -1,0 +1,17 @@
+kind: "VerificationTemplate"
+name: "jenkins-vt"
+args: [ ]
+metrics:
+  - name: "jenkinsci"
+    dryRun: true
+    provider:
+      jenkins:
+        pipelineName: jenkinsPipelineName
+        tlsVerification: false
+        timeout: '120s'
+        interval: '5s'
+        parameters:
+          - key: key1
+            value: param1
+          - key: key2
+            value: param2

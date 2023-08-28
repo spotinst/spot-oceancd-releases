@@ -1,0 +1,24 @@
+name: "Strategy-Verification-Jenkins"
+canary:
+  backgroundVerification:
+    templateNames:
+      - "jenkins-vt"
+  steps:
+    - name: "set-weight-1"
+      setWeight: 20
+      verification:
+        templateNames:
+          - "jenkins-vt"
+    - name: "set-weight-2"
+      setWeight: 40
+      pause:
+        duration: 1m
+    - name: "set-weight-3"
+      setWeight: 60
+    - name: "set-weight-4"
+      setWeight: 80
+      verification:
+        templateNames:
+          - "jenkins-vt"
+    - name: "set-weight-final"
+      setWeight: 100
