@@ -36,30 +36,91 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "oceancd-operator-manager.serviceAccountName" . }}
-      containers:
-      - image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
-        {{- with .Values.operatorManager.extraEnv }}
-        env:
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+      initContainers:
+      - name: regestration
+        args: 
+        - --registrar
+        command:
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
         imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
-        name: oceancd-operator-manager
-        ports:
-        - containerPort: {{ .Values.operatorManager.containerPorts.http }}
-          name: http
-        livenessProbe:
-          {{- toYaml .Values.operatorManager.livenessProbe | nindent 10 }}
-        readinessProbe:
-          {{- toYaml .Values.operatorManager.readinessProbe | nindent 10 }}
-        securityContext:
-          {{- toYaml .Values.operatorManager.containerSecurityContext | nindent 10 }}
+        {{- if .Values.operatorManager.regestration.resources }}
         resources:
-          {{- toYaml .Values.operatorManager.resources | nindent 10 }}
+          {{- toYaml .Values.operatorManager.regestration.resources | nindent 10 }}
+        {{- end }}
+        env:  
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
+      - name: installation
+        args: 
+        - --installer
+        command:
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        {{- if .Values.operatorManager.installation.resources }}
+        resources:
+          {{- toYaml .Values.operatorManager.installation.resources | nindent 10 }}
+        {{- end }}
+        env:
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
         volumeMounts:
           - name: oceancd-operator-manager-config
             mountPath: /config
             readOnly: true
-          {{- with .Values.operatorManager.extraVolumeMounts }}
+          {{- with .Values.operatorManager.installation.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      containers:
+      - name: manager
+        args:     
+        - --operations
+        command: 
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        livenessProbe:
+          {{- toYaml .Values.operatorManager.manager.livenessProbe | nindent 10 }}
+        readinessProbe:
+          {{- toYaml .Values.operatorManager.manager.readinessProbe | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.operatorManager.manager.containerSecurityContext | nindent 10 }}
+        {{- if .Values.operatorManager.manager.resources }}
+        resources:
+          {{- toYaml .Values.operatorManager.manager.resources | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+          - name: oceancd-operator-manager-config
+            mountPath: /config
+            readOnly: true
+          {{- with .Values.operatorManager.manager.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- if .Values.operatorManager.nodeSelector }}
