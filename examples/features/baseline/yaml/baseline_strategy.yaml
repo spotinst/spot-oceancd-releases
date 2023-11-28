@@ -1,0 +1,15 @@
+---
+strategy:
+  name: BaselineStrategy-OceanCD
+  type: canary
+  canary:
+    steps:
+      - name: one
+        setWeight: 20
+        pause:
+          duration: 10s
+      - name: two
+        setWeight: 80
+        verification:
+          templateNames:
+            - dd-baseline-test

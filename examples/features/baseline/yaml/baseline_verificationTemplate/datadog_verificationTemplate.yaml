@@ -1,0 +1,19 @@
+---
+verificationTemplate:
+  name: baseline-vt-datadog
+  metrics:
+    - name: baseline-metric
+      interval: 5s
+      count: 2
+      successCondition: result > 0
+      failureLimit: 1
+      provider:
+        datadog:
+          duration: 10s
+          query: avg:system.cpu.user{*}
+      baseline:
+        threshold: "<="
+        provider:
+          datadog:
+            duration: 10s
+            query: avg:system.cpu.user{*}

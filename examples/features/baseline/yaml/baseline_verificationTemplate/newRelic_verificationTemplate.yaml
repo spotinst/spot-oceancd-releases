@@ -1,0 +1,19 @@
+---
+verificationTemplate:
+  name: baseline-vt-newrelic
+  metrics:
+    - name: baseline-metric
+      interval: 5s
+      count: 5
+      successCondition: result['count'] < 1000
+      failureLimit: 2
+      provider:
+        newRelic:
+          profile: newrelic
+          query: FROM Metric SELECT count(*)
+      baseline:
+        threshold: "="
+        provider:
+          newRelic:
+            profile: newrelic
+            query: FROM Metric SELECT count(*)

@@ -1,0 +1,21 @@
+---
+verificationTemplate:
+  name: baseline-vt-prometheus
+  metrics:
+    - name: baseline-metric
+      dryRun: false
+      interval: 1s
+      count: 5
+      successCondition: result[0] >= 0
+      failureLimit: 2
+      consecutiveErrorLimit: 2
+      provider:
+        prometheus:
+          query: sum(container_cpu_usage_seconds_total{namespace="baseline-ns"})
+      baseline:
+        threshold: range
+        minRange: 5
+        maxRange: 5
+        provider:
+          prometheus:
+            query: sum(container_cpu_usage_seconds_total{namespace="baseline-ns"})

@@ -65,3 +65,25 @@ the `secretKeyRef` field
 > - Once you set the value of the arg inside VerificationTemplate you don't need to repeat it in the RolloutSpec
 
 See the [related templates](./secrets_as_part_of_arguments)
+
+### Baseline Verification
+
+The baseline feature allows users to determine the success/failure of their metrics based on a comparison made between two versions (Stable VS New Version).
+
+A baseline should be useful to any user that has difficulties setting VerificationTemplate’s success or failure thresholds.
+
+> **Note**:
+>
+> - Baseline works with: Prometheus, DataDog and NewRelic providers
+> - The threshold can be one of:
+>   - '<'
+>   - '<='
+>   - '>'
+>   - '>='
+>   - '='
+>   - 'range'
+>     - 'minRange'
+>     - 'maxRange'
+>     - when you set the threshold to be 'range' you should provide a minimum and maximum range in percentage [0-100]
+
+See the [related templates](./baseline).
