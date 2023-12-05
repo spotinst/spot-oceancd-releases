@@ -6,7 +6,6 @@ verificationTemplate:
       dryRun: false
       interval: 1s
       count: 5
-      successCondition: result[0] >= 0
       failureLimit: 2
       consecutiveErrorLimit: 2
       provider:

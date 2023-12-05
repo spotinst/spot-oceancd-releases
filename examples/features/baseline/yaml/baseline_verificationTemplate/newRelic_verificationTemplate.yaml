@@ -5,7 +5,6 @@ verificationTemplate:
     - name: baseline-metric
       interval: 5s
       count: 5
-      successCondition: result['count'] < 1000
       failureLimit: 2
       provider:
         newRelic:

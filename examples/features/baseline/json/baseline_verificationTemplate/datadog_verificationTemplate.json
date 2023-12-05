@@ -6,7 +6,6 @@
         "name": "baseline-metric",
         "interval": "5s",
         "count": 2,
-        "successCondition": "result > 0",
         "failureLimit": 1,
         "provider": {
           "datadog": {

@@ -75,7 +75,7 @@ A baseline should be useful to any user that has difficulties setting Verificati
 > **Note**:
 >
 > - Baseline works with: Prometheus, DataDog and NewRelic providers
-> - The threshold can be one of:
+> - The comparison can be configured with the following:
 >   - '<'
 >   - '<='
 >   - '>'
