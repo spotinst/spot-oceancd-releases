@@ -1,0 +1,16 @@
+{
+  "rolloutSpec": {
+    "name": "BaselineRolloutSpec-OceanCD",
+    "spotDeployment": {
+      "clusterId": "cluster-name",
+      "namespace": "my-namespace",
+      "name": "nginx-deployment"
+    },
+    "strategy": {
+      "name": "BaselineStrategy-OceanCD"
+    },
+    "failurePolicy": {
+      "action": "abort"
+    }
+  }
+}
