@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: oceancd-operator-manager-config
+  name: spot-oceancd-operator-manager-config
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: oceancd-operator-manager
-    {{- include "oceancd-operator-manager.labels" . | nindent 4 }}
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
 data:
   oceancd.yml: |
     operator: 

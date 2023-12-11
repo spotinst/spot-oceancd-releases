@@ -5,16 +5,16 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  name: {{ include "oceancd-operator-manager.fullname" . }}
+  name: {{ include "spot-oceancd-operator-manager.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: oceancd-operator-manager
-    {{- include "oceancd-operator-manager.labels" . | nindent 4 }}
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      app: oceancd-operator-manager
-      {{- include "oceancd-operator-manager.selectorLabels" . | nindent 6 }}
+      app: spot-oceancd-operator-manager
+      {{- include "spot-oceancd-operator-manager.selectorLabels" . | nindent 6 }}
   strategy:
     type: RollingUpdate
   replicas: {{ .Values.operatorManager.replicas }}
@@ -25,8 +25,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "oceancd-operator-manager.selectorLabels" . | nindent 8 }}
-        app: oceancd-operator-manager
+        {{- include "spot-oceancd-operator-manager.selectorLabels" . | nindent 8 }}
+        app: spot-oceancd-operator-manager
         {{- range $key, $value := .Values.operatorManager.podLabels }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
@@ -35,7 +35,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "oceancd-operator-manager.serviceAccountName" . }}
+      serviceAccountName: {{ include "spot-oceancd-operator-manager.serviceAccountName" . }}
       initContainers:
       - name: regestration
         args: 
@@ -81,6 +81,12 @@ spec:
           {{- toYaml .Values.operatorManager.installation.resources | nindent 10 }}
         {{- end }}
         env:
+        - name: OPERATOR_POD_NAME
+          value: spot-oceancd-operator
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: TOKEN
           valueFrom:
             secretKeyRef:
@@ -92,7 +98,7 @@ spec:
               key: saasUrl
               name: spot-oceancd-controller-token
         volumeMounts:
-          - name: oceancd-operator-manager-config
+          - name: spot-oceancd-operator-manager-config
             mountPath: /config
             readOnly: true
           {{- with .Values.operatorManager.installation.extraVolumeMounts }}
@@ -107,9 +113,21 @@ spec:
         image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
         imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
         livenessProbe:
-          {{- toYaml .Values.operatorManager.manager.livenessProbe | nindent 10 }}
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8084
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          successThreshold: 1
         readinessProbe:
-          {{- toYaml .Values.operatorManager.manager.readinessProbe | nindent 10 }}
+          failureThreshold: 3
+          httpGet:
+            path: /readyz
+            port: 8084
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
         securityContext:
           {{- toYaml .Values.operatorManager.manager.containerSecurityContext | nindent 10 }}
         {{- if .Values.operatorManager.manager.resources }}
@@ -117,7 +135,7 @@ spec:
           {{- toYaml .Values.operatorManager.manager.resources | nindent 10 }}
         {{- end }}
         volumeMounts:
-          - name: oceancd-operator-manager-config
+          - name: spot-oceancd-operator-manager-config
             mountPath: /config
             readOnly: true
           {{- with .Values.operatorManager.manager.extraVolumeMounts }}
@@ -144,8 +162,8 @@ spec:
         {{- if not $constraint.labelSelector }}
         labelSelector:
           matchLabels:
-            app: oceancd-operator-manager
-            {{- include "oceancd-operator-manager.selectorLabels" $ | nindent 12 }}
+            app: spot-oceancd-operator-manager
+            {{- include "spot-oceancd-operator-manager.selectorLabels" $ | nindent 12 }}
         {{- end }}
         {{- end }}
       {{- end }}
@@ -153,9 +171,9 @@ spec:
       priorityClassName: {{ . }}
       {{- end }}
       volumes:
-        - name: oceancd-operator-manager-config
+        - name: spot-oceancd-operator-manager-config
           configMap:
-            name: oceancd-operator-manager-config
+            name: spot-oceancd-operator-manager-config
         {{- with .Values.operatorManager.extraVolumes }}
           {{- toYaml . | nindent 8 }}
         {{- end }}

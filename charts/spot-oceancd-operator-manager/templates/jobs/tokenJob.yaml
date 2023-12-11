@@ -1,22 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: oceancd-operator-manager-secrets-generator
+  name: spot-oceancd-operator-manager-secrets-generator
   labels:
-    app: oceancd-operator-manager
-    {{- include "oceancd-operator-manager.labels" . | nindent 4 }}
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-install
 spec:
   template:
     metadata:
       labels:
-        app: oceancd-operator-manager
-        {{- include "oceancd-operator-manager.labels" . | nindent 8 }}
+        app: spot-oceancd-operator-manager
+        {{- include "spot-oceancd-operator-manager.labels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "oceancd-operator-manager.serviceAccountName" . }}
       containers:
-        - name: oceancd-operator-manager-token-generator
+        - name: spot-oceancd-operator-manager-token-generator
           image: spotinst/spot-oceancd-controller-installer:helm
           imagePullPolicy: Always
           env:

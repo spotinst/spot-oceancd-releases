@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spot-oceancd-operator-manager-secret-delete
+  labels:
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-delete
+spec:
+  template:
+    metadata:
+      labels:
+        app: spot-oceancd-operator-manager
+        {{- include "spot-oceancd-operator-manager.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: spot-oceancd-operator-manager-secret-delete
+          image: bitnami/kubectl
+          imagePullPolicy: Always
+          command:
+            - "bin/sh"
+            - "-c"
+            - "kubectl delete secret spot-oceancd-controller-token -n {{ .Release.Namespace }} --ignore-not-found=true"
+      restartPolicy: Never
+  backoffLimit: 1

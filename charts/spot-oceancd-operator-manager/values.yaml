@@ -6,27 +6,11 @@ operatorManager:
   imagePullSecrets: []
   image:
     registry: "spotinst"
-    repository: "oceancd-operator-manager"
-    tag: "0.1.0"
+    repository: "spot-oceancd-operator-manager"
+    tag: "0.0.2"
     pullPolicy: "IfNotPresent"
 
   manager:
-    livenessProbe:
-      failureThreshold: 3
-      httpGet:
-        path: /healthz
-        port: 8084
-      initialDelaySeconds: 15
-      periodSeconds: 20
-      successThreshold: 1
-    readinessProbe:
-      failureThreshold: 3
-      httpGet:
-        path: /readyz
-        port: 8084
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      successThreshold: 1
     containerSecurityContext:
       allowPrivilegeEscalation: false
     resources: {}
