@@ -7,7 +7,7 @@ operatorManager:
   image:
     registry: "spotinst"
     repository: "spot-oceancd-operator-manager"
-    tag: "0.0.2"
+    tag: "0.0.3"
     pullPolicy: "IfNotPresent"
 
   manager:
