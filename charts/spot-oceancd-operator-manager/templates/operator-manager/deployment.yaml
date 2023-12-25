@@ -112,6 +112,27 @@ spec:
         - /manager
         image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
         imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        env:  
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
         livenessProbe:
           failureThreshold: 3
           httpGet:
