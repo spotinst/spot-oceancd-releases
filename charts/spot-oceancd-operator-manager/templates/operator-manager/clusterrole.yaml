@@ -289,9 +289,7 @@ rules:
   - rolebindings
   - roles
   verbs:
-  - create
-  - get
-  - patch
+  - "*"
 - apiGroups:
   - spot.io
   resources:
