@@ -48,9 +48,7 @@ spec:
         resources:
           {{- toYaml .Values.operatorManager.regestration.resources | nindent 10 }}
         {{- end }}
-        env:
-        - name: OCEANCD_OPERATOR_NAME
-          value: spot-oceancd-operator
+        env:  
         - name: NODE_NAME
           valueFrom:
             fieldRef:
@@ -89,11 +87,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
         - name: TOKEN
           valueFrom:
             secretKeyRef:
@@ -119,7 +112,7 @@ spec:
         - /manager
         image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
         imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
-        env:
+        env:  
         - name: OCEANCD_OPERATOR_NAME
           value: spot-oceancd-operator
         - name: NODE_NAME
