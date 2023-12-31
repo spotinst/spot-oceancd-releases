@@ -44,7 +44,6 @@ operatorManager:
   clusterId: ""
 
 operator:
-  namespace: oceancd
   nodeSelector: {}
   affinity: {}
   resources: {}
