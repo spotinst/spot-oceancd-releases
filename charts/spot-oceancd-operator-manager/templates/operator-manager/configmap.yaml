@@ -44,6 +44,7 @@ data:
       serviceAccountAnnotations:
         {{- toYaml .Values.operator.serviceAccountAnnotations | nindent 8 }}
       {{- end }}
+      namespace: {{ .Release.Namespace }}
   argo.yml: |
     general:
       namespace: {{ .Values.argoRollouts.general.namespace }}
