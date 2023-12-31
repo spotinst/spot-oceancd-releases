@@ -2,14 +2,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: spot-oceancd-operator-manager-config
-  namespace: {{ .Release.Namespace | quote }}
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
 data:
   oceancd.yml: |
     operator: 
-      namespace: {{ .Values.operator.namespace }}
       {{- if .Values.operator.nodeSelector }}
       nodeSelector:
         {{- toYaml .Values.operator.nodeSelector | nindent 8 }}
@@ -46,6 +44,7 @@ data:
       serviceAccountAnnotations:
         {{- toYaml .Values.operator.serviceAccountAnnotations | nindent 8 }}
       {{- end }}
+      namespace: {{ .Values.operator.namespace }}
   argo.yml: |
     general:
       namespace: {{ .Values.argoRollouts.general.namespace }}
