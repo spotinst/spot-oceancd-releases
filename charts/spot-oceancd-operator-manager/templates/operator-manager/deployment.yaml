@@ -10,6 +10,9 @@ metadata:
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+    {{- range $key, $value := .Values.operatorManager.labels }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
   selector:
     matchLabels:

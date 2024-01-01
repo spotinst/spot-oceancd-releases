@@ -32,6 +32,10 @@ data:
       labels:
         {{- toYaml .Values.operator.labels | nindent 8 }}
       {{- end }}
+      {{- if .Values.operator.podLabels }}
+      podLabels:
+        {{- toYaml .Values.operator.podLabels | nindent 8 }}
+      {{- end }}
       {{- if .Values.operator.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml .Values.operator.imagePullSecrets | nindent 8 }}

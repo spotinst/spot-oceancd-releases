@@ -2,6 +2,7 @@ operatorManager:
   replicas: 1
   deploymentAnnotations: {}
   podAnnotations: {}
+  labels: {}
   podLabels: {}
   imagePullSecrets: []
   image:
@@ -50,6 +51,7 @@ operator:
   tolerations: []
   extraEnv: []
   labels: {}
+  podLabels: {}
   imagePullSecrets: []
   annotations: {}
   serviceAccountAnnotations: {}
