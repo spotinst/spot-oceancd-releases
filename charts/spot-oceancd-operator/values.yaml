@@ -3,6 +3,7 @@ argoRollouts:
   # -- (Optional) If create argo-rollouts
   create: true
 
+  # -- (Optional) If keep argo-rollouts crds
   keepCRDs: true
 
   # -- (Optional) If create argo-rollouts namespace
