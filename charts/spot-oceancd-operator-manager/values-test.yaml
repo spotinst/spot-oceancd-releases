@@ -1,0 +1,168 @@
+operatorManager:
+  replicas: 1
+  deploymentAnnotations:
+    deployannot: annot
+  podAnnotations:
+    podannot: annot
+  labels:
+    omlabel: label
+  podLabels:
+    ompod: label
+  imagePullSecrets: []
+  image:
+    registry: "spotinst"
+    repository: "spot-oceancd-operator-manager"
+    tag: "0.0.3"
+    pullPolicy: "Always"
+
+  manager:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "300m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    extraVolumeMounts: []
+  installation:
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "200m"
+      limits:
+        memory: "128Mi"
+        cpu: "400m"
+    extraVolumeMounts: []
+  registration:
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "128Mi"
+        cpu: "300m"
+  nodeSelector: {}
+  podSecurityContext:
+    runAsNonRoot: true
+  tolerations: []
+  affinity: {}
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+
+  token: ""
+
+  tokenExistingSecret: ""
+
+  saasUrl: https://cluster-gateway.oceancd.io
+
+  apiUrl: https://api.spotinst.io
+
+  clusterId: ""
+
+operator:
+  nodeSelector: {}
+  affinity: {}
+  resources: {}
+  tolerations: []
+  extraEnv: []
+  labels: {}
+  podLabels: {}
+  imagePullSecrets: []
+  annotations: {}
+  serviceAccountAnnotations: {}
+
+argoRollouts:
+  general:
+    namespace: argo-rolloutss
+    podLabels:
+      argolabels: label
+    podAnnotations:
+      podannotation: annot
+    serviceLabels:
+      servicelabel: label
+    serviceAnnotations:
+      serviceannot: annot
+    serviceAccountAnnotations:
+      caduriannot: testss
+    labels:
+      argolabel: label
+  controller:
+    replicas: 2
+    nodeSelector: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - spot-oceancd-cluster-gateway
+            topologyKey: "kubernetes.io/hostname"
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "300m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    tolerations:
+      - key: spotNodeKind
+        operator: Equal
+        value: saas
+        effect: NoSchedule
+    extraEnv:
+      - name: DEMO_GREETING
+        value: "Hello from the environmensts"
+    extraArgs:
+      - --aws-verify-target-group
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+    imagePullSecrets:
+      - name: regcred
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: healthz
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /metrics
+        port: metrics
+      initialDelaySeconds: 15
+      periodSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 4
+
+  dashboard:
+    enabled: true
+    replicas: 2
+    nodeSelector: {}
+    affinity: {}
+    resources: {}
+    tolerations: []
+    extraEnv: []
+    containerSecurityContext: {}
+    imagePullSecrets: []
+
+
+ helm install operator oceancd/spot-oceancd-operator \
+  --namespace oceancd \
+  --create-namespace \
+  --set token=1b5027cfe2080800b86b3fcd488564775035e4050aa5872c497de5e780ac1c61 \
+  --set clusterId=om-test \
+  --set argoRollouts.create=true \
+  --set operatorManager.saasUrl=https://cluster-gateway.oceancd-dev.com \
+  --set operatorManager.apiUrl=https://api-public.dev.spotinst.com

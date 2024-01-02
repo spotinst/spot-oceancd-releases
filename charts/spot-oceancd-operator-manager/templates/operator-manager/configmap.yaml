@@ -68,6 +68,10 @@ data:
       serviceAnnotations:
         {{- toYaml .Values.argoRollouts.general.serviceAnnotations | nindent 8 }}
       {{- end }}
+      {{- if .Values.argoRollouts.general.serviceAccountAnnotations }}
+      serviceAccountAnnotations:
+        {{- toYaml .Values.argoRollouts.general.serviceAccountAnnotations | nindent 8 }}
+      {{- end }}
       {{- if .Values.argoRollouts.general.labels }}
       labels:
         {{- toYaml .Values.argoRollouts.general.labels | nindent 8 }}

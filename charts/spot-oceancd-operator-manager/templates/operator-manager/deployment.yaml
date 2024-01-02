@@ -41,16 +41,16 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "spot-oceancd-operator-manager.serviceAccountName" . }}
       initContainers:
-      - name: regestration
+      - name: registration
         args: 
         - --registrar
         command:
         - /manager
         image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
         imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
-        {{- if .Values.operatorManager.regestration.resources }}
+        {{- if .Values.operatorManager.registration.resources }}
         resources:
-          {{- toYaml .Values.operatorManager.regestration.resources | nindent 10 }}
+          {{- toYaml .Values.operatorManager.registration.resources | nindent 10 }}
         {{- end }}
         env:  
         - name: NODE_NAME
