@@ -3,6 +3,8 @@ argoRollouts:
   # -- (Optional) If create argo-rollouts
   create: true
 
+  keepCRDs: true
+
   # -- (Optional) If create argo-rollouts namespace
   createNamespace: true
 
@@ -40,6 +42,7 @@ argoRollouts:
 
     # -- (Optional) Assign custom [affinity] rules to the argo rollout deployment
     affinity: {}
+
 
 operator:
 
