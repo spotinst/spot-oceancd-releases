@@ -121,4 +121,15 @@ entries:
     urls:
     - https://github.com/spotinst/spot-oceancd-releases/releases/download/spot-oceancd-operator-1.1.0/spot-oceancd-operator-1.1.0.tgz
     version: 1.1.0
+  spot-oceancd-operator-manager:
+  - apiVersion: v2
+    appVersion: 0.0.3
+    created: "2024-01-03T14:28:42.658379019Z"
+    description: A Helm chart for spot-oceancd-operator-manager
+    digest: 287e9c83349d9b314d3155b18877b477f7246851d1c5a43b83ad7d71c4a870b5
+    name: spot-oceancd-operator-manager
+    type: application
+    urls:
+    - https://github.com/spotinst/spot-oceancd-releases/releases/download/spot-oceancd-operator-manager-0.0.3/spot-oceancd-operator-manager-0.0.3.tgz
+    version: 0.0.3
 generated: "2022-06-16T10:50:45.026747667Z"
