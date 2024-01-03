@@ -1,0 +1,206 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  {{- with .Values.operatorManager.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "spot-oceancd-operator-manager.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+    {{- range $key, $value := .Values.operatorManager.labels }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: spot-oceancd-operator-manager
+      {{- include "spot-oceancd-operator-manager.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: RollingUpdate
+  replicas: {{ .Values.operatorManager.replicas }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/operator-manager/configmap.yaml") . | sha256sum }}
+        {{- with .Values.operatorManager.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "spot-oceancd-operator-manager.selectorLabels" . | nindent 8 }}
+        app: spot-oceancd-operator-manager
+        {{- range $key, $value := .Values.operatorManager.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+    spec:
+      {{- with .Values.operatorManager.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "spot-oceancd-operator-manager.serviceAccountName" . }}
+      initContainers:
+      - name: registration
+        args: 
+        - --registrar
+        command:
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        {{- if .Values.operatorManager.registration.resources }}
+        resources:
+          {{- toYaml .Values.operatorManager.registration.resources | nindent 10 }}
+        {{- end }}
+        env:  
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
+      - name: installation
+        args: 
+        - --installer
+        command:
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        {{- if .Values.operatorManager.installation.resources }}
+        resources:
+          {{- toYaml .Values.operatorManager.installation.resources | nindent 10 }}
+        {{- end }}
+        env:
+        - name: OCEANCD_OPERATOR_NAME
+          value: spot-oceancd-operator
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
+        volumeMounts:
+          - name: spot-oceancd-operator-manager-config
+            mountPath: /config
+            readOnly: true
+          {{- with .Values.operatorManager.installation.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      containers:
+      - name: manager
+        args:     
+        - --operations
+        command: 
+        - /manager
+        image: "{{ .Values.operatorManager.image.registry }}/{{ .Values.operatorManager.image.repository }}:{{ default .Chart.AppVersion .Values.operatorManager.image.tag }}"
+        imagePullPolicy: {{ .Values.operatorManager.image.pullPolicy }}
+        env:  
+        - name: OCEANCD_OPERATOR_NAME
+          value: spot-oceancd-operator
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: spot-oceancd-controller-token
+        - name: SAAS_URL
+          valueFrom:
+            secretKeyRef:
+              key: saasUrl
+              name: spot-oceancd-controller-token
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8084
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          successThreshold: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /readyz
+            port: 8084
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+        securityContext:
+          {{- toYaml .Values.operatorManager.manager.containerSecurityContext | nindent 10 }}
+        {{- if .Values.operatorManager.manager.resources }}
+        resources:
+          {{- toYaml .Values.operatorManager.manager.resources | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+          - name: spot-oceancd-operator-manager-config
+            mountPath: /config
+            readOnly: true
+          {{- with .Values.operatorManager.manager.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if .Values.operatorManager.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.operatorManager.nodeSelector | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.operatorManager.podSecurityContext | nindent 8 }}
+      {{- if .Values.operatorManager.tolerations }}
+      tolerations:
+        {{- toYaml .Values.operatorManager.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operatorManager.affinity }}
+      affinity:
+        {{- toYaml .Values.operatorManager.affinity | nindent 8 }}
+      {{- end }}
+      {{- with .Values.operatorManager.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+      - {{ toYaml $constraint | nindent 8 | trim }}
+        {{- if not $constraint.labelSelector }}
+        labelSelector:
+          matchLabels:
+            app: spot-oceancd-operator-manager
+            {{- include "spot-oceancd-operator-manager.selectorLabels" $ | nindent 12 }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- with .Values.operatorManager.priorityClassName }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      volumes:
+        - name: spot-oceancd-operator-manager-config
+          configMap:
+            name: spot-oceancd-operator-manager-config
+        {{- with .Values.operatorManager.extraVolumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}

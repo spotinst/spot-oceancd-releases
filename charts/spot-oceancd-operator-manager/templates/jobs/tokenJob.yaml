@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spot-oceancd-operator-manager-secrets-generator
+  labels:
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+spec:
+  template:
+    metadata:
+      labels:
+        app: spot-oceancd-operator-manager
+        {{- include "spot-oceancd-operator-manager.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: spot-oceancd-operator-manager-token-generator
+          image: spotinst/spot-oceancd-controller-installer:helm
+          imagePullPolicy: Always
+          env:
+          - name: API_URL
+            value: {{ required "A value must be entered for apiUrl" .Values.operatorManager.apiUrl }}
+          - name: CLUSTER_ID
+            value: {{ required "A value must be entered for clusterId" .Values.operatorManager.clusterId }}
+          {{- if .Values.operatorManager.token }}
+          - name: TOKEN
+            value: {{ .Values.operatorManager.token }}
+          {{- else }}
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name:  {{ required "A value must be entered for token or tokenExistingSecret" .Values.operatorManager.tokenExistingSecret }}
+                key: spot-token
+          {{- end }}
+          - name: SAAS_URL
+            value: {{ required "A value must be entered for saasUrl" .Values.operatorManager.saasUrl }}
+      restartPolicy: Never
+  backoffLimit: 1

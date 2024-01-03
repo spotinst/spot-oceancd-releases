@@ -1,0 +1,244 @@
+operatorManager:
+  # -- The number of operator manager pods to run
+  replicas: 1
+
+  # -- Annotations for operator manager deployment
+  deploymentAnnotations: {}
+
+  # -- Annotations for operator manager pods
+  podAnnotations: {}
+
+  # -- Labels to be added to operator manager components
+  labels: {}
+
+  # -- Labels to be added to operator manager pods
+  podLabels: {}
+
+  # -- Secrets with credentials to pull images from a private registry. Registry secret names as an array
+  imagePullSecrets: []
+  # - name: om-secret
+
+  image:
+    # -- Registry to use for operator manager image
+    registry: "spotinst"
+
+    # -- Repository to use for operator manager image
+    repository: "spot-oceancd-operator-manager"
+
+    # -- Overrides the operator manager image tag
+    tag: "0.0.3"
+
+    # -- Image pull policy for operator manager
+    pullPolicy: "IfNotPresent"
+
+  manager:
+    # -- Security Context to set on operator-manager manager container level
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+
+    # -- Resource limits and requests for the operator-manager manager container
+    resources: {}
+
+    # -- Additional volumeMounts to add to the operator-manager manager container
+    extraVolumeMounts: []
+    # - mountPath: /etc/ssl/certs
+    #   name: my-certs
+
+  installation:
+    # -- Resource limits and requests for the operator manager installation container
+    resources: {}
+
+    # -- Additional volumeMounts to add to the operator manager installation container
+    extraVolumeMounts: []
+
+  registration:
+    # -- Resource limits and requests for the operator manager registration container
+    resources: {}
+
+  # -- Node selector for operator manager pods
+  nodeSelector: {}
+
+  # -- Security Context to set on operator manager pod level
+  podSecurityContext:
+    runAsNonRoot: true
+
+  # -- Tolerations for use with node taints for operator manager pods
+  tolerations: []
+
+  # -- Assign custom affinity rules to the operator manager deployment
+  affinity: {}
+
+  # -- Assign custom TopologySpreadConstraints rules to the operator manager
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+
+  # -- priorityClassName for the operator manager deployment
+  priorityClassName: ""
+
+  # -- Additional volumes to add to the operator manager pod
+  extraVolumes: []
+
+  serviceAccount:
+    # -- Specifies whether a service account for operator manager should be created
+    create: true
+
+    # -- Annotations to add to the operator manager service account
+    annotations: {}
+
+    # -- The name of the service account to use for operator manager.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  # -- Spot token
+  token: ""
+
+  # -- Use existing Secret which stores spot token. The value should be set with the `spot-token` key inside the secret.
+  ## If set, this parameter takes precedence over "token".
+  tokenExistingSecret: ""
+
+  # -- Saas URL
+  saasUrl: https://cluster-gateway.oceancd.io
+
+  # -- Spot Api URL
+  apiUrl: https://api.spotinst.io
+
+  # -- Cluster ID
+  clusterId: ""
+
+operator:
+  # -- Node selector for operator pods
+  nodeSelector: {}
+
+  # -- Assign custom affinity rules to the operator deployment
+  affinity: {}
+
+  # -- Resource limits and requests for the operator pod
+  resources: {}
+
+  # -- Tolerations for use with node taints for operator pods
+  tolerations: []
+
+  # -- Additional environment variables for operator. A list of name/value maps.
+  extraEnv: []
+  # - name: FOO
+  #   value: bar
+
+  # -- Labels to be added to operator components
+  labels: {}
+
+  # -- Labels to be added to operator pods
+  podLabels: {}
+
+  # -- Secrets with credentials to pull images from a private registry. Registry secret names as an array
+  imagePullSecrets: []
+
+  # -- Annotations to add to the operator
+  annotations: {}
+
+  # -- Annotations to add to the operator service account
+  serviceAccountAnnotations: {}
+
+argoRollouts:
+  general:
+    # -- Namespace to deploy argo-rollouts
+    namespace: argo-rollouts
+
+    # -- Labels to be added to argo-rollouts pods
+    podLabels: {}
+
+    # -- Annotations to be added to argo-rollouts pods
+    podAnnotations: {}
+
+    # -- Labels to be added to argo-rollouts service
+    serviceLabels: {}
+
+    # -- Annotations to be added to argo-rollouts service
+    serviceAnnotations: {}
+
+    # -- Annotations to be added to argo-rollouts service account
+    serviceAccountAnnotations: {}
+
+    # -- Labels to be added to argo-rollouts components
+    labels: {}
+
+  controller:
+    # -- The number of argo-rollouts pods to run
+    replicas: 1
+
+    # -- Node selector for argo-rollouts pods
+    nodeSelector: {}
+
+    # -- Assign custom affinity rules to the argo-rollouts deployment
+    affinity: {}
+
+    # -- Resource limits and requests for the argo-rollouts pod
+    resources: {}
+
+    # -- Tolerations for use with node taints for argo-rollouts pods
+    tolerations: []
+
+    # -- Additional environment variables for argo-rollouts. A list of name/value maps.
+    extraEnv: []
+
+    # -- Additional command line arguments to pass to argo-rollouts.  A list of flags.
+    extraArgs: []
+
+    # -- Security Context to set on argo-rollouts container level
+    containerSecurityContext: {}
+
+    # -- Secrets with credentials to pull images from a private registry. Registry secret names as an array
+    imagePullSecrets: []
+
+    # -- Configure liveness probe for the argo-rollouts pod
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: healthz
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 10
+
+    # -- Configure readiness probe for the argo-rollouts pod
+    readinessProbe:
+      httpGet:
+        path: /metrics
+        port: metrics
+      initialDelaySeconds: 15
+      periodSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      timeoutSeconds: 4
+
+  dashboard:
+    # -- Deploy argo-rollouts dashboard server
+    enabled: false
+
+    # -- The number of argo-rollouts dashboard pods to run
+    replicas: 1
+
+    # -- Node selector for argo-rollouts dashboard pods
+    nodeSelector: {}
+
+    # -- Assign custom affinity rules to the argo-rollouts dashboard deployment
+    affinity: {}
+
+    # -- Resource limits and requests for the argo-rollouts dashboard container
+    resources: {}
+
+    # -- Tolerations for use with node taints for argo-rollouts dashboard pods
+    tolerations: []
+
+    # -- Additional environment variables for argo-rollouts dashboard. A list of name/value maps.
+    extraEnv: []
+
+    # -- Security Context to set on argo-rollouts dashboard container level
+    containerSecurityContext: {}
+
+    # -- Secrets with credentials to pull images from a private registry. Registry secret names as an array
+    imagePullSecrets: []

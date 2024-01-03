@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spot-oceancd-operator-manager-config
+  labels:
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+data:
+  oceancd.yml: |
+    operator: 
+      {{- if .Values.operator.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.operator.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.affinity }}
+      affinity:
+        {{- toYaml .Values.operator.affinity | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.resources }}
+      resources:
+        {{- toYaml .Values.operator.resources | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.tolerations }}
+      tolerations:
+        {{- toYaml .Values.operator.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.extraEnv }}
+      extraEnv:
+        {{- toYaml .Values.operator.extraEnv | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.labels }}
+      labels:
+        {{- toYaml .Values.operator.labels | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.podLabels }}
+      podLabels:
+        {{- toYaml .Values.operator.podLabels | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.operator.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.annotations }}
+      annotations:
+        {{- toYaml .Values.operator.annotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.operator.serviceAccountAnnotations }}
+      serviceAccountAnnotations:
+        {{- toYaml .Values.operator.serviceAccountAnnotations | nindent 8 }}
+      {{- end }}
+      namespace: {{ .Release.Namespace }}
+  argo.yml: |
+    general:
+      namespace: {{ .Values.argoRollouts.general.namespace }}
+      {{- if .Values.argoRollouts.general.podLabels }}
+      podLabels:
+        {{- toYaml .Values.argoRollouts.general.podLabels | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.general.podAnnotations }}
+      podAnnotations:
+        {{- toYaml .Values.argoRollouts.general.podAnnotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.general.serviceLabels }}
+      serviceLabels:
+        {{- toYaml .Values.argoRollouts.general.serviceLabels | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.general.serviceAnnotations }}
+      serviceAnnotations:
+        {{- toYaml .Values.argoRollouts.general.serviceAnnotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.general.serviceAccountAnnotations }}
+      serviceAccountAnnotations:
+        {{- toYaml .Values.argoRollouts.general.serviceAccountAnnotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.general.labels }}
+      labels:
+        {{- toYaml .Values.argoRollouts.general.labels | nindent 8 }}
+      {{- end }}
+    controller:
+      replicas: {{ .Values.argoRollouts.controller.replicas }}
+      {{- if .Values.argoRollouts.controller.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.argoRollouts.controller.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.affinity }}
+      affinity:
+        {{- toYaml .Values.argoRollouts.controller.affinity | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.resources }}
+      resources:
+        {{- toYaml .Values.argoRollouts.controller.resources | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.tolerations }}
+      tolerations:
+        {{- toYaml .Values.argoRollouts.controller.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.extraEnv }}
+      extraEnv:
+        {{- toYaml .Values.argoRollouts.controller.extraEnv | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.extraArgs }}
+      extraArgs:
+        {{- toYaml .Values.argoRollouts.controller.extraArgs | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.containerSecurityContext }}
+      containerSecurityContext:
+        {{- toYaml .Values.argoRollouts.controller.containerSecurityContext | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.argoRollouts.controller.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.livenessProbe }}
+      livenessProbe:
+        {{- toYaml .Values.argoRollouts.controller.livenessProbe | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.controller.readinessProbe }}
+      readinessProbe:
+        {{- toYaml .Values.argoRollouts.controller.readinessProbe | nindent 8 }}
+      {{- end }}
+    dashboard:
+      enabled: {{ .Values.argoRollouts.dashboard.enabled }}
+      replicas: {{ .Values.argoRollouts.dashboard.replicas }}
+      {{- if .Values.argoRollouts.dashboard.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.argoRollouts.dashboard.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.affinity }}
+      affinity:
+        {{- toYaml .Values.argoRollouts.dashboard.affinity | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.resources }}
+      resources:
+        {{- toYaml .Values.argoRollouts.dashboard.resources | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.tolerations }}
+      tolerations:
+        {{- toYaml .Values.argoRollouts.dashboard.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.extraEnv }}
+      env:
+        {{- toYaml .Values.argoRollouts.dashboard.extraEnv | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.containerSecurityContext }}
+      containerSecurityContext:
+        {{- toYaml .Values.argoRollouts.dashboard.containerSecurityContext | nindent 8 }}
+      {{- end }}
+      {{- if .Values.argoRollouts.dashboard.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.argoRollouts.dashboard.imagePullSecrets | nindent 8 }}
+      {{- end }}

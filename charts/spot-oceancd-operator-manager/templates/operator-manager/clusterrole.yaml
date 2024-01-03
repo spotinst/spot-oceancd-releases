@@ -1,0 +1,306 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "spot-oceancd-operator-manager.fullname" . }}
+  labels:
+    app: spot-oceancd-operator-manager
+    {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - secrets
+  - serviceaccounts
+  - services
+  verbs:
+  - create
+  - get
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - secrets/finalizers
+  - secrets/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - get
+  - patch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - deployments/finalizers
+  - deployments/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  - replicasets/finalizers
+  - replicasets/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - secrets
+  - secrets/finalizers
+  - secrets/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - analysisruns
+  - analysisruns/finalizers
+  - analysisruns/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - analysistemplates
+  - analysistemplates/finalizers
+  - analysistemplates/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - clusteranalysistemplates
+  - clusteranalysistemplates/finalizers
+  - clusteranalysistemplates/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - experiments
+  - experiments/finalizers
+  - experiments/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - rollouts
+  - rollouts/finalizers
+  - rollouts/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - events
+  - events/finalizers
+  - events/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - namespaces/finalizers
+  - namespaces/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/finalizers
+  - pods/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - services/finalizers
+  - services/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - monitoring.coreos.com/v1
+  resources:
+  - servicemonitors
+  verbs:
+  - create
+  - get
+  - patch
+- apiGroups:
+  - networking.k8s.io/v1
+  resources:
+  - ingresses
+  verbs:
+  - create
+  - get
+  - patch
+- apiGroups:
+  - operators.coreos.com
+  resources:
+  - installplans
+  - installplans/finalizers
+  - installplans/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - policy/v1
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - create
+  - get
+  - patch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - clusterroles
+  - rolebindings
+  - roles
+  verbs:
+  - "*"
+- apiGroups:
+  - spot.io
+  resources:
+  - spotdeployments
+  - spotdeployments/finalizers
+  - spotdeployments/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
