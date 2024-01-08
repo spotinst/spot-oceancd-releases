@@ -10,32 +10,23 @@ rules:
   - ""
   resources:
   - configmaps
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
   - secrets
   - serviceaccounts
   - services
-  verbs:
-  - create
-  - get
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - secrets
   - secrets/finalizers
   - secrets/status
+  - events
+  - events/finalizers
+  - events/status
+  - services
+  - services/finalizers
+  - services/status
+  - pods
+  - pods/finalizers
+  - pods/status
+  - namespaces
+  - namespaces/finalizers
+  - namespaces/status
   verbs:
   - create
   - delete
@@ -60,44 +51,11 @@ rules:
   - apps
   resources:
   - deployments
-  verbs:
-  - create
-  - get
-  - patch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
   - deployments/finalizers
   - deployments/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
   - replicasets
   - replicasets/finalizers
   - replicasets/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - secrets
-  - secrets/finalizers
-  - secrets/status
   verbs:
   - create
   - delete
@@ -179,71 +137,9 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - configmaps
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - events
-  - events/finalizers
-  - events/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  - namespaces/finalizers
-  - namespaces/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
   - nodes
   verbs:
   - get
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - pods/finalizers
-  - pods/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - services
-  - services/finalizers
-  - services/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
 - apiGroups:
   - monitoring.coreos.com/v1
   resources:
@@ -261,20 +157,6 @@ rules:
   - get
   - patch
 - apiGroups:
-  - operators.coreos.com
-  resources:
-  - installplans
-  - installplans/finalizers
-  - installplans/status
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
   - policy/v1
   resources:
   - poddisruptionbudgets
@@ -290,7 +172,13 @@ rules:
   - rolebindings
   - roles
   verbs:
-  - "*"
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
 - apiGroups:
   - spot.io
   resources:
