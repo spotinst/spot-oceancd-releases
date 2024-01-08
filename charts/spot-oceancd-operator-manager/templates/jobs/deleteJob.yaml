@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: spot-oceancd-operator-manager-secret-delete
+  name: spot-oceancd-operator-manager-delete
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
@@ -14,13 +14,61 @@ spec:
         app: spot-oceancd-operator-manager
         {{- include "spot-oceancd-operator-manager.labels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ include "spot-oceancd-operator-manager.serviceAccountName" . }}
       containers:
-        - name: spot-oceancd-operator-manager-secret-delete
-          image: bitnami/kubectl
+        - name: spot-oceancd-operator-manager-delete
+          image: alpine/k8s:1.28.4
           imagePullPolicy: Always
-          command:
-            - "bin/sh"
-            - "-c"
-            - "kubectl delete secret spot-oceancd-controller-token -n {{ .Release.Namespace }} --ignore-not-found=true"
+          env: 
+          {{- if .Values.operatorManager.token }}
+          - name: TOKEN
+            value: {{ .Values.operatorManager.token }}
+          {{- else }}
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name:  {{ required "A value must be entered for token or tokenExistingSecret" .Values.operatorManager.tokenExistingSecret }}
+                key: spot-token
+          {{- end }}
+          command: ["/bin/bash"]
+          args: 
+          - -c
+          - |
+            echo "Deleting operator manager secret"
+            kubectl delete secret spot-oceancd-controller-token -n {{ .Release.Namespace }} --ignore-not-found=true
+            echo "Get resources to delete in the cluster"
+            response=$(curl -X GET -s {{ .Values.operatorManager.apiUrl }}/ocean/cd/cluster/manifest/metadata -H "Authorization: Bearer $TOKEN")
+            opreator_resources=$(echo $response | jq -r '.response.items[].operator[]| "\(.kind) \(.name)"')
+            echo -e "Operator resources to delete: \n$opreator_resources"
+            argo_resources=$(echo $response | jq -r '.response.items[].argo[]| "\(.kind) \(.name)"')
+            echo -e "Argo resources to delete: \n$argo_resources \n"
+            IFS=$'\n' read -r -d '' -a operator_array <<< "$opreator_resources"
+            IFS=$'\n' read -r -d '' -a argo_array <<< "$argo_resources"
+            for resource in "${operator_array[@]}"; do
+              kind=$(echo $resource | awk '{print $1}')
+              if [[ "{{ .Values.operator.keepCRDs }}" == "true" && "$kind" == "CustomResourceDefinition" ]]; then
+                echo "KeepCRDs is true, not deleting $resource"
+                continue
+              fi
+              echo "Deleting $resource"
+              kubectl delete $resource -n {{ .Release.Namespace }}
+            done
+
+            if [[ "{{ .Values.argoRollouts.general.keepArgo }}" == "false" ]]; then
+              for resource in "${argo_array[@]}"; do
+                kind=$(echo $resource | awk '{print $1}')
+                if [[ "{{ .Values.argoRollouts.general.keepCRDs }}" == "true" && "$kind" == "CustomResourceDefinition" ]]; then
+                  echo "KeepCRDs is true, not deleting $resource"
+                  continue
+                fi
+                echo "Deleting $resource"
+                kubectl delete $resource -n {{ .Values.argoRollouts.general.namespace }}
+              done
+              if [[ "{{ .Values.argoRollouts.general.keepNamespace }}" == "false" ]]; then
+                echo "Deleting ns {{ .Values.argoRollouts.general.namespace }}"
+                kubectl delete ns {{ .Values.argoRollouts.general.namespace }}
+              fi
+            fi
+
       restartPolicy: Never
   backoffLimit: 1

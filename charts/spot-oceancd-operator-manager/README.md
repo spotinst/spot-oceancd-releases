@@ -10,7 +10,8 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add oceancd https://charts.oceancd.io
-$ helm install my-release oceancd/spot-oceancd-operator \
+$ helm repo update
+$ helm install my-release oceancd/spot-oceancd-operator-manager \
   --namespace <RELEASE_NAMESPACE> \
   --create-namespace \
   --set token=<SPOT_TOKEN> \
@@ -41,6 +42,9 @@ $ helm install my-release oceancd/spot-oceancd-operator \
 | argoRollouts.dashboard.replicas | int | `1` | The number of argo-rollouts dashboard pods to run |
 | argoRollouts.dashboard.resources | object | `{}` | Resource limits and requests for the argo-rollouts dashboard container |
 | argoRollouts.dashboard.tolerations | list | `[]` | Tolerations for use with node taints for argo-rollouts dashboard pods |
+| argoRollouts.general.keepArgo | bool | false | If keep argo-rollouts on delete | 
+| argoRollouts.general.keepCRDs | bool | true | If keep argo-rollouts crds on delete | 
+| argoRollouts.general.keepNamespace | bool | false | If keep argo-rollouts namespace on delete | 
 | argoRollouts.general.labels | object | `{}` | Labels to be added to argo-rollouts components |
 | argoRollouts.general.namespace | string | `"argo-rollouts"` | Namespace to deploy argo-rollouts |
 | argoRollouts.general.podAnnotations | object | `{}` | Annotations to be added to argo-rollouts pods |
@@ -52,6 +56,7 @@ $ helm install my-release oceancd/spot-oceancd-operator \
 | operator.annotations | object | `{}` | Annotations to add to the operator |
 | operator.extraEnv | list | `[]` | Additional environment variables for operator. A list of name/value maps. |
 | operator.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array |
+| operator.keepCRDs | bool | true | If keep operator crds on delete |
 | operator.labels | object | `{}` | Labels to be added to operator components |
 | operator.nodeSelector | object | `{}` | Node selector for operator pods |
 | operator.podLabels | object | `{}` | Labels to be added to operator pods |
