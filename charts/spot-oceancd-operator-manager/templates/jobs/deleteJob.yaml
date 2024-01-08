@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: spot-oceancd-operator-manager-delete
+  name: spot-oceancd-operator-manager-secret-delete
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
@@ -69,6 +69,6 @@ spec:
                 kubectl delete ns {{ .Values.argoRollouts.general.namespace }}
               fi
             fi
-
+            
       restartPolicy: Never
   backoffLimit: 1

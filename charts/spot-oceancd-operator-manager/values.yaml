@@ -112,7 +112,7 @@ operatorManager:
 operator:
   # -- If keep operator crds on delete
   keepCRDs: true
-
+  
   # -- Node selector for operator pods
   nodeSelector: {}
 

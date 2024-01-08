@@ -1,0 +1,37 @@
+{
+  "verificationTemplate": {
+      "name": "nginx-validator",
+      "args": [
+          {
+              "name": "validator-token",
+              "valueFrom": {
+                  "name": "validator-secret",
+                  "key": "token"
+              }
+          }
+      ],
+      "metrics": [
+          {
+              "name": "validate-nginx",
+              "interval": "60s",
+              "count": 4,
+              "successCondition": "fggfddfgfd",
+              "failureLimit": 2,
+              "provider": {
+                  "web": {
+                      "method": "GET",
+                      "url": "http://nginx.oceancd.com/validate",
+                      "headers": [
+                        {
+                          "key": "Authorization",
+                          "value": "Bearer {{args.validator-token}}"
+                        }
+                      ],
+                      "jsonPath": "{$.data}",
+                      "insecure": false
+                  }
+              }
+          }
+      ]
+  }
+}

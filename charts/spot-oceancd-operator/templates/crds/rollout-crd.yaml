@@ -4,6 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.7.0
+    {{- if .Values.argoRollouts.keepCRDs }}
+    "helm.sh/resource-policy": keep
+    {{- end }}
   labels:
     app.kubernetes.io/name: argo-rollouts
     app.kubernetes.io/part-of: argo-rollouts
