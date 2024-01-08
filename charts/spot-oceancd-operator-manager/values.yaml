@@ -110,6 +110,9 @@ operatorManager:
   clusterId: ""
 
 operator:
+  # -- If keep operator crds on delete
+  keepCRDs: true
+  
   # -- Node selector for operator pods
   nodeSelector: {}
 
@@ -146,6 +149,15 @@ argoRollouts:
   general:
     # -- Namespace to deploy argo-rollouts
     namespace: argo-rollouts
+
+    # -- If keep argo-rollouts on delete
+    keepArgo: false
+
+    # -- If keep argo-rollouts crds on delete
+    keepCRDs: true
+
+    # -- If keep argo-rollouts namespace on delete
+    keepNamespace: false
 
     # -- Labels to be added to argo-rollouts pods
     podLabels: {}
