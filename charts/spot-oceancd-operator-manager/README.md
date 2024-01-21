@@ -14,8 +14,8 @@ $ helm repo update
 $ helm install my-release oceancd/spot-oceancd-operator-manager \
   --namespace <RELEASE_NAMESPACE> \
   --create-namespace \
-  --set token=<SPOT_TOKEN> \
-  --set clusterId=<CLUSETR_ID> 
+  --set operatorManager.token=<SPOT_TOKEN> \
+  --set operatorManager.clusterId=<CLUSETR_ID> 
 ```
 
 ## Values
