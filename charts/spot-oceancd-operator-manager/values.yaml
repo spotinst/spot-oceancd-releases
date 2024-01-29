@@ -109,10 +109,19 @@ operatorManager:
   # -- Cluster ID
   clusterId: ""
 
+  job:
+    install:
+      # -- Install job image tag
+      tag: helm
+
+    delete:
+      # -- Delete job image tag
+      tag: helm-delete
+
 operator:
   # -- If keep operator crds on delete
   keepCRDs: true
-  
+
   # -- Node selector for operator pods
   nodeSelector: {}
 

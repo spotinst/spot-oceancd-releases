@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: spot-oceancd-operator-manager-token-generator
-          image: spotinst/spot-oceancd-controller-installer:helm
+          image: spotinst/spot-oceancd-controller-installer:{{ .Values.operatorManager.job.install.tag }}
           imagePullPolicy: Always
           env:
           - name: API_URL

@@ -75,6 +75,8 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
 | operatorManager.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array |
 | operatorManager.installation.extraVolumeMounts | list | `[]` | Additional volumeMounts to add to the operator manager installation container |
 | operatorManager.installation.resources | object | `{}` | Resource limits and requests for the operator manager installation container |
+| operatorManager.job.delete.tag | string | helm-delete | Delete job image tag |
+| operatorManager.job.install.tag | string | helm | Install job image tag |
 | operatorManager.labels | object | `{}` | Labels to be added to operator manager components |
 | operatorManager.manager.containerSecurityContext | object | `{"allowPrivilegeEscalation":false}` | Security Context to set on operator-manager manager container level |
 | operatorManager.manager.extraVolumeMounts | list | `[]` | Additional volumeMounts to add to the operator-manager manager container |
@@ -96,3 +98,12 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
 | operatorManager.topologySpreadConstraints | list | `[]` | Assign custom TopologySpreadConstraints rules to the operator manager |
 
 ----------------------------------------------
+
+## Troubleshooting
+- `Error: INSTALLATION FAILED: failed pre-install: job failed: BackoffLimitExceeded`
+
+  Check installation job failure reason: 
+
+  ```console
+  $ kubectl logs jobs/spot-oceancd-operator-manager-secrets-generator -n <RELEASE_NAMESPACE> 
+  ```
