@@ -154,6 +154,28 @@ operator:
   # -- Annotations to add to the operator service account
   serviceAccountAnnotations: {}
 
+  metrics:
+    # -- Deploy operator metrics service
+    enabled: false
+    service:
+      # -- Metrics service annotations
+      annotations: {}
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: false
+
+      # -- Labels to be added to the ServiceMonitor
+      additionalLabels: {}
+
+      # -- Annotations to be added to the ServiceMonitor
+      additionalAnnotations: {}
+
+      # -- RelabelConfigs to apply to samples before scraping
+      relabelings: []
+
+      # -- MetricRelabelConfigs to apply to samples before ingestion
+      metricRelabelings: []
+
 argoRollouts:
   general:
     # -- Namespace to deploy argo-rollouts

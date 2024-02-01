@@ -48,6 +48,32 @@ data:
       serviceAccountAnnotations:
         {{- toYaml .Values.operator.serviceAccountAnnotations | nindent 8 }}
       {{- end }}
+      metrics:
+        enabled: {{ .Values.operator.metrics.enabled }}
+        {{- if .Values.operator.metrics.enabled }}
+        service:
+          {{- with .Values.operator.metrics.service.annotations }}
+          annotations: 
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        serviceMonitor:
+          enabled: {{ .Values.operator.metrics.serviceMonitor.enabled }}
+          {{- with .Values.operator.metrics.serviceMonitor.additionalLabels }}
+          additionalLabels: 
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.operator.metrics.serviceMonitor.additionalAnnotations }}
+          additionalAnnotations: 
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.operator.metrics.serviceMonitor.relabelings }}
+          relabelings: 
+            {{- toYaml . | nindent 12 }}
+          {{- end }}        
+          {{- with .Values.operator.metrics.serviceMonitor.relabelings }}
+          metricRelabelings: 
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       namespace: {{ .Release.Namespace }}
   argo.yml: |
     general:
