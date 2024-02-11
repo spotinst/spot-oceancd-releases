@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: spot-oceancd-operator-manager-rolebinding
+  name: spot-oceancd-operator-manager-job-rolebinding
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
@@ -10,7 +10,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: spot-oceancd-operator-manager-role
+  name: spot-oceancd-operator-manager-job-role
 subjects:
 - kind: ServiceAccount
   name: default

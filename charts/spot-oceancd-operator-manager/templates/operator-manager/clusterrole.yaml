@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "spot-oceancd-operator-manager.fullname" . }}
+  name: spot-oceancd-operator-manager-clusterrole
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
