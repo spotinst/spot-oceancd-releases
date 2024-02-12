@@ -42,9 +42,9 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
 | argoRollouts.dashboard.replicas | int | `1` | The number of argo-rollouts dashboard pods to run |
 | argoRollouts.dashboard.resources | object | `{}` | Resource limits and requests for the argo-rollouts dashboard container |
 | argoRollouts.dashboard.tolerations | list | `[]` | Tolerations for use with node taints for argo-rollouts dashboard pods |
-| argoRollouts.general.keepArgo | bool | false | If keep argo-rollouts on delete | 
-| argoRollouts.general.keepCRDs | bool | true | If keep argo-rollouts crds on delete | 
-| argoRollouts.general.keepNamespace | bool | false | If keep argo-rollouts namespace on delete | 
+| argoRollouts.general.keepArgo | bool | `false` | If keep argo-rollouts on delete |
+| argoRollouts.general.keepCRDs | bool | `true` | If keep argo-rollouts crds on delete |
+| argoRollouts.general.keepNamespace | bool | `false` | If keep argo-rollouts namespace on delete |
 | argoRollouts.general.labels | object | `{}` | Labels to be added to argo-rollouts components |
 | argoRollouts.general.namespace | string | `"argo-rollouts"` | Namespace to deploy argo-rollouts |
 | argoRollouts.general.podAnnotations | object | `{}` | Annotations to be added to argo-rollouts pods |
@@ -56,8 +56,15 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
 | operator.annotations | object | `{}` | Annotations to add to the operator |
 | operator.extraEnv | list | `[]` | Additional environment variables for operator. A list of name/value maps. |
 | operator.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array |
-| operator.keepCRDs | bool | true | If keep operator crds on delete |
+| operator.keepCRDs | bool | `true` | If keep operator crds on delete |
 | operator.labels | object | `{}` | Labels to be added to operator components |
+| operator.metrics.enabled | bool | `false` | Deploy operator metrics service |
+| operator.metrics.service.annotations | object | `{}` | Metrics service annotations |
+| operator.metrics.serviceMonitor.additionalAnnotations | object | `{}` | Annotations to be added to the ServiceMonitor |
+| operator.metrics.serviceMonitor.additionalLabels | object | `{}` | Labels to be added to the ServiceMonitor |
+| operator.metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| operator.metrics.serviceMonitor.metricRelabelings | list | `[]` | MetricRelabelConfigs to apply to samples before ingestion |
+| operator.metrics.serviceMonitor.relabelings | list | `[]` | RelabelConfigs to apply to samples before scraping |
 | operator.nodeSelector | object | `{}` | Node selector for operator pods |
 | operator.podLabels | object | `{}` | Labels to be added to operator pods |
 | operator.resources | object | `{}` | Resource limits and requests for the operator pod |
@@ -75,8 +82,8 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
 | operatorManager.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array |
 | operatorManager.installation.extraVolumeMounts | list | `[]` | Additional volumeMounts to add to the operator manager installation container |
 | operatorManager.installation.resources | object | `{}` | Resource limits and requests for the operator manager installation container |
-| operatorManager.job.delete.tag | string | helm-delete | Delete job image tag |
-| operatorManager.job.install.tag | string | helm | Install job image tag |
+| operatorManager.job.delete.tag | string | `"helm-delete"` | Delete job image tag |
+| operatorManager.job.install.tag | string | `"helm"` | Install job image tag |
 | operatorManager.labels | object | `{}` | Labels to be added to operator manager components |
 | operatorManager.manager.containerSecurityContext | object | `{"allowPrivilegeEscalation":false}` | Security Context to set on operator-manager manager container level |
 | operatorManager.manager.extraVolumeMounts | list | `[]` | Additional volumeMounts to add to the operator-manager manager container |

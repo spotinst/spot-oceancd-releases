@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: spot-oceancd-operator-manager-role
+  name: spot-oceancd-operator-manager-job-role
   labels:
     app: spot-oceancd-operator-manager
     {{- include "spot-oceancd-operator-manager.labels" . | nindent 4 }}
