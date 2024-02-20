@@ -18,6 +18,13 @@ $ helm install my-release oceancd/spot-oceancd-operator-manager \
   --set operatorManager.clusterId=<CLUSETR_ID> 
 ```
 
+## Migration from spot-oceancd-operator to spot-oceancd-operator-manager
+
+Prior to migrating from the spot-oceancd-operator chart to the spot-oceancd-operator-manager chart and deleting the old chart installation, it is imperative to ensure that the most recent version of the spot-oceancd-operator chart is deployed within your cluster. 
+Verify that the spot-oceancd-operator values set with: `argoRollouts.keepCRDs: true`
+
+Choosing not to upgrade to the spot-oceancd-operator latest version will result in the deletion of Argo Rollouts CRDs along with the pods associated with SpotDeployment.
+
 ## Values
 
 | Key | Type | Default | Description |
